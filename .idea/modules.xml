@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pcmsv2.iml" filepath="$PROJECT_DIR$/pcmsv2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pcmsv2-browser/pcmsv2-browser.iml" filepath="$PROJECT_DIR$/pcmsv2-browser/pcmsv2-browser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pcmsv2-core/pcmsv2-core.iml" filepath="$PROJECT_DIR$/pcmsv2-core/pcmsv2-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pcmsv2-web/pcmsv2-web.iml" filepath="$PROJECT_DIR$/pcmsv2-web/pcmsv2-web.iml" />
+    </modules>
+  </component>
+</project>
