@@ -26,7 +26,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private DataSource dataSource;
 
     @Autowired
-    private UserDetailsService myUserDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
@@ -39,14 +39,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
         applyPasswordAuthenticationConfig(http);
 
-        http.apply(validateCodeSecurityConfig)
-            .and()
-                .apply(smsCodeAuthenticationSecurityConfig)
+        http.apply(smsCodeAuthenticationSecurityConfig)
             .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                .userDetailsService(myUserDetailsService)
+                .userDetailsService(userDetailsService)
             .and()
                 .authorizeRequests()
                 .antMatchers(

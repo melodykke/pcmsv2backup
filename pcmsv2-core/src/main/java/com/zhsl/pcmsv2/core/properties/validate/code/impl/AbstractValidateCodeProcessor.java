@@ -107,13 +107,13 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             throw new ValidateCodeException("获取验证码的值失败");
         }
 
-        if (StringUtils.isBlank(codeInRequest)) {
+       /* if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateCodeException(processorType + "验证码的值不能为空");
         }
 
         if (codeInSession == null) {
             throw new ValidateCodeException(processorType + "验证码不存在");
-        }
+        }*/
 
         if (codeInSession.isExpired()) {
             sessionStrategy.removeAttribute(request, sessionKey);
