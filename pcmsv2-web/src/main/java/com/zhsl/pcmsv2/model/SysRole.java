@@ -1,11 +1,12 @@
 package com.zhsl.pcmsv2.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
 @Data
-public class SysRole {
+public class SysRole implements GrantedAuthority {
     private String roleId;
 
     private Boolean available;
@@ -15,4 +16,9 @@ public class SysRole {
     private String role;
 
     private List<SysPermission> permissions;
+
+    @Override
+    public String getAuthority() {
+        return role;
+    }
 }
