@@ -61,6 +61,7 @@
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="repeat_times" jdbcType="INTEGER" property="repeatTimes" />
     <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="affiliated_to" jdbcType="VARCHAR" property="affiliatedTo" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from base_info
@@ -88,7 +89,7 @@
       total_investment, unit_project_amount, unit_project_overview, 
       update_time, utilizabl_capacity, water_supply_population, 
       watersupply, `state`, repeat_times, 
-      region_id)
+      region_id, affiliated_to)
     values (#{baseInfoId,jdbcType=VARCHAR}, #{areaCoverage,jdbcType=DECIMAL}, #{branchProjectAmount,jdbcType=INTEGER}, 
       #{branchProjectOverview,jdbcType=VARCHAR}, #{catchmentArea,jdbcType=DECIMAL}, #{cellProjectAmount,jdbcType=INTEGER}, 
       #{cellProjectOverview,jdbcType=VARCHAR}, #{centralAccumulativePayment,jdbcType=DECIMAL}, 
@@ -110,7 +111,7 @@
       #{totalInvestment,jdbcType=DECIMAL}, #{unitProjectAmount,jdbcType=INTEGER}, #{unitProjectOverview,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{utilizablCapacity,jdbcType=DECIMAL}, #{waterSupplyPopulation,jdbcType=DECIMAL}, 
       #{watersupply,jdbcType=DECIMAL}, #{state,jdbcType=TINYINT}, #{repeatTimes,jdbcType=INTEGER}, 
-      #{regionId,jdbcType=INTEGER})
+      #{regionId,jdbcType=INTEGER}, #{affiliatedTo, jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zhsl.pcmsv2.model.BaseInfo">
     update base_info
@@ -171,7 +172,8 @@
       watersupply = #{watersupply,jdbcType=DECIMAL},
       `state` = #{state,jdbcType=TINYINT},
       repeat_times = #{repeatTimes,jdbcType=INTEGER},
-      region_id = #{regionId,jdbcType=INTEGER}
+      region_id = #{regionId,jdbcType=INTEGER},
+      affiliated_to = #{affiliatedTo, jdbcType=VARCHAR}
     where base_info_id = #{baseInfoId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -186,7 +188,7 @@
     provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway, 
     `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview, 
     update_time, utilizabl_capacity, water_supply_population, watersupply, `state`, repeat_times, 
-    region_id
+    region_id, affiliated_to
     from base_info
     where base_info_id = #{baseInfoId,jdbcType=VARCHAR}
   </select>
@@ -202,7 +204,7 @@
     provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway, 
     `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview, 
     update_time, utilizabl_capacity, water_supply_population, watersupply, `state`, repeat_times, 
-    region_id
+    region_id, affiliated_to
     from base_info
   </select>
   <select id="findByRegionId" resultMap="BaseResultMap">
@@ -217,7 +219,7 @@
     provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway,
     `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview,
     update_time, utilizabl_capacity, water_supply_population, watersupply, `state`, repeat_times,
-    region_id
+    region_id, affiliated_to
     from base_info
     WHERE region_id = #{regionId}
   </select>

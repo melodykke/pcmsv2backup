@@ -2,8 +2,13 @@ package com.zhsl.pcmsv2.browser.enums;
 
 public enum SysEnum {
 
-    ACCOUNT_ERROR(10000, "账户错误"),
-
+    LOGIN_ACCOUNT_ERROR(10000, "账户登录错误"),
+    INVALID_INFO_RECEIVED_ERROR(9991, "系统没有收到有效的信息"),
+    INVALID_KEY_RECEIVED_ERROR(9992, "系统没有收到有效的标识"),
+    VERIFY_RECEIVED_INFO_ERROR(9993, "收到的信息校验出错"),
+    INCONSISTENT_PASSWORD_ERROR(9994, "密码不一致"),
+    INVALID_PASSWORD_FORMAT(9995, "密码格式错误"),
+    NOT_EXIST_RECORD(9996, "不存在的记录"),
 
     BOOLEAN_RESULT_SUCCESS(1, "成功"),
     BOOLEAN_RESULT_FAIL(0, "失败"),

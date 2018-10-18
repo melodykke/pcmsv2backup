@@ -122,6 +122,9 @@ public class BaseInfo {
 
     private Integer regionId;
 
+    private String affiliatedTo;
+
+
     public String getBaseInfoId() {
         return baseInfoId;
     }
@@ -593,4 +596,13 @@ public class BaseInfo {
     public void setRegionId(Integer regionId) {
         this.regionId = regionId;
     }
+
+    public String getAffiliatedTo() {
+        return affiliatedTo;
+    }
+
+    public void setAffiliatedTo(String affiliatedTo) {
+        this.affiliatedTo = affiliatedTo;
+    }
+
 }

@@ -38,7 +38,7 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
         if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.failed(SysEnum.ACCOUNT_ERROR.getCode(),
+            response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.failed(SysEnum.LOGIN_ACCOUNT_ERROR.getCode(),
                     "登陆失败，可能是" + exception.getMessage() + "也可能不存在此账号")));
         } else {
             super.onAuthenticationFailure(request, response, exception);

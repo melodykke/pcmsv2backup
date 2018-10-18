@@ -2,6 +2,7 @@ package com.zhsl.pcmsv2.browser;
 
 import com.zhsl.pcmsv2.core.authentication.AbstractChannelSecurityConfig;
 import com.zhsl.pcmsv2.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.zhsl.pcmsv2.core.authorize.AuthorizeConfigManager;
 import com.zhsl.pcmsv2.core.properties.SecurityConstants;
 import com.zhsl.pcmsv2.core.properties.SecurityProperties;
 import com.zhsl.pcmsv2.core.properties.validate.code.ValidateCodeSecurityConfig;
@@ -34,6 +35,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -46,17 +50,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
             .and()
-                .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-            .and()
                 .csrf().disable();
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
     @Bean

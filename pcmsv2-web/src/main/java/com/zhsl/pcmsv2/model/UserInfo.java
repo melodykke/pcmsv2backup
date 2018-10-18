@@ -10,15 +10,13 @@ import java.util.List;
 public class UserInfo implements UserDetails{
     private String userId;
 
-    private Byte active;
-
     private Date createTime;
+
+    private boolean accountNonLocked = true;
 
     private String name;
 
     private String password;
-
-    private String salt;
 
     private Date updateTime;
 
@@ -55,7 +53,7 @@ public class UserInfo implements UserDetails{
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.accountNonLocked;
     }
 
     @Override
@@ -77,14 +75,6 @@ public class UserInfo implements UserDetails{
         this.userId = userId;
     }
 
-    public Byte getActive() {
-        return active;
-    }
-
-    public void setActive(Byte active) {
-        this.active = active;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -103,14 +93,6 @@ public class UserInfo implements UserDetails{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public Date getUpdateTime() {
@@ -155,5 +137,22 @@ public class UserInfo implements UserDetails{
 
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userId='" + userId + '\'' +
+                ", createTime=" + createTime +
+                ", accountNonLocked=" + accountNonLocked +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", updateTime=" + updateTime +
+                ", username='" + username + '\'' +
+                ", baseInfoId='" + baseInfoId + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", openId='" + openId + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

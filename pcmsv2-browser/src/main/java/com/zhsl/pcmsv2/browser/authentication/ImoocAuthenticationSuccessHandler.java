@@ -33,7 +33,7 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
 
         if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(authentication));
+            response.getWriter().write(objectMapper.writeValueAsString(authentication.getPrincipal()));
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
         }
