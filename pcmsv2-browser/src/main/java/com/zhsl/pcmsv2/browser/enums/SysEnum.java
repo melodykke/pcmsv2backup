@@ -9,6 +9,7 @@ public enum SysEnum {
     INCONSISTENT_PASSWORD_ERROR(9994, "密码不一致"),
     INVALID_PASSWORD_FORMAT(9995, "密码格式错误"),
     NOT_EXIST_RECORD(9996, "不存在的记录"),
+    DUPLICATED_RECORD(9997, "重复的记录"),
 
     BOOLEAN_RESULT_SUCCESS(1, "成功"),
     BOOLEAN_RESULT_FAIL(0, "失败"),
@@ -20,7 +21,7 @@ public enum SysEnum {
     DATA_CALLBACK_FAILED(1003, "数据返回错误"),
     DATA_SUBMIT_FAILED(1004, "数据提交错误"),
     PERSON_INFO_DUPLICATED(1005, "重复提交个人信息"),
-    USER_INFO_DUPLICATED(1006, "存在重复的用户名"),
+
     PERSON_INFO_ERROR(1007, "提交个人信息错误"),
     LOGIN_INACTIVE_ERROR(1008, "登陆账号未激活！"),
     CREATE_USER_ACCOUNT_ERROR(1009, "开通账户失败，参数错误！"),

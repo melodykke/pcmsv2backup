@@ -97,4 +97,7 @@ public interface UserInfoMapper {
      * @return
      */
     List<String> findAllUsername();
+
+    int changeBaseInfoIdToUUID(@Param("baseInfoId") String baseInfoId, @Param("userId") String userId);
+
 }

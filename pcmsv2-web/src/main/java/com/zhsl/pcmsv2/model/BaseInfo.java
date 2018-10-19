@@ -116,9 +116,7 @@ public class BaseInfo {
 
     private BigDecimal watersupply;
 
-    private Byte state;
-
-    private Integer repeatTimes;
+    private Byte state; // 标记生命周期中的建设节点
 
     private Integer regionId;
 
@@ -579,14 +577,6 @@ public class BaseInfo {
 
     public void setState(Byte state) {
         this.state = state;
-    }
-
-    public Integer getRepeatTimes() {
-        return repeatTimes;
-    }
-
-    public void setRepeatTimes(Integer repeatTimes) {
-        this.repeatTimes = repeatTimes;
     }
 
     public Integer getRegionId() {

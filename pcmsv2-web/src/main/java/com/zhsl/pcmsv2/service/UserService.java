@@ -55,5 +55,11 @@ public interface UserService extends UserDetailsService {
      * 查询所有的用户 （不包含最上级用户）
      * @return
      */
-    List<UserInfoVO> findAllUserInfos();
+    List<UserInfoVO> findAll();
+
+    /**
+     * 将数据库中userinfo信息同步至redis
+     */
+    void syncToRedis();
+
 }

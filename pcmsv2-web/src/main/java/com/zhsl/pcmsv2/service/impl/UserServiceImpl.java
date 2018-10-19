@@ -1,8 +1,12 @@
 package com.zhsl.pcmsv2.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhsl.pcmsv2.browser.enums.SysEnum;
 import com.zhsl.pcmsv2.convertor.tovo.UserInfo2VO;
 import com.zhsl.pcmsv2.dto.UserInfoDTO;
+import com.zhsl.pcmsv2.enums.RedisKeys;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.UserInfoMapper;
 import com.zhsl.pcmsv2.model.UserInfo;
@@ -14,12 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -27,6 +36,7 @@ import static com.zhsl.pcmsv2.convertor.dto2model.UserInfoDTO2Model.convert;
 
 @Slf4j
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -36,6 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
 
     @Override
@@ -89,12 +102,12 @@ public class UserServiceImpl implements UserService {
 
         if (allUsername.contains(userInfoDTO.getUsername())) {
             log.error("【用户】 创建用户时，已存在拟申请用户名");
-            throw new SysException(SysEnum.USER_INFO_DUPLICATED);
+            throw new SysException(SysEnum.DUPLICATED_RECORD);
         }
 
         UserInfo userInfo = convert(userInfoDTO);
 
-        userInfo.setUserId(UUIDUtils.getUUID().toUpperCase());
+        userInfo.setUserId(UUIDUtils.getUUID());
         userInfo.setCreateTime(new Date());
         userInfo.setUpdateTime(new Date());
         userInfo.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
@@ -177,6 +190,12 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * 封装了查找用户信息的参数username、 id 为一个参数 usernameOrId
+     * @param usernameOrId
+     * @return
+     */
+    @Override
     public UserInfoVO findUserInfoByUsernameOrIdWithRolesAndPrivileges(String usernameOrId) {
 
         UserInfo userInfo = null;
@@ -212,23 +231,82 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public List<UserInfoVO> findAllUserInfos() {
+    public List<UserInfoVO> findAll() {
+
+        List<UserInfoVO> userInfoVOs = null;
+
+        // 首先尝试从redis中获取数据
+        if (stringRedisTemplate.hasKey(RedisKeys.ALLUSERINFO.getKey())) {
+            String allUserInfoVosStr = stringRedisTemplate.opsForValue().get(RedisKeys.ALLUSERINFO.getKey());
+            if (allUserInfoVosStr != null && !"".equals(allUserInfoVosStr)) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, UserInfoVO.class);
+                try {
+                    userInfoVOs = objectMapper.readValue(allUserInfoVosStr, javaType);
+                    return userInfoVOs;
+                } catch (IOException e) {
+                    log.error("【用户】 查询所有用户信息时， 从redis中获取的数据在json转化为对象时出错");
+                }
+            }
+        }
+
+        // 如果redis中获取数据出错（可能是不存在）则尝试从数据库中获取
+        List<UserInfo> userInfos = userInfoMapper.selectAll();
+
+        if (userInfos == null) {
+            return new ArrayList<>();
+        }
+
+        removeTopUser(userInfos);
+
+        userInfoVOs = userInfos.stream().map(e -> UserInfo2VO.convert(e)).collect(Collectors.toList());
+
+        return userInfoVOs;
+    }
+
+    @Override
+    public void syncToRedis() {
 
         List<UserInfo> userInfos = userInfoMapper.selectAll();
 
+        removeTopUser(userInfos);
+
+        List<UserInfoVO> userInfoVOs = userInfos.stream().map(e -> UserInfo2VO.convert(e)).collect(Collectors.toList());
+
+        // 如果成功提交一个新的水库信息，则更新redis里所有水库的数据
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(() -> {
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            try {
+                String allUserInfoVOsStr = objectMapper.writeValueAsString(userInfoVOs);
+                stringRedisTemplate.opsForValue().set(RedisKeys.ALLUSERINFO.getKey(), allUserInfoVOsStr);
+            } catch (JsonProcessingException e) {
+                log.error("用户信息同步至redis的过程中， 转化json出错。");
+                return;
+            }
+        });
+
+        log.error("用户信息同步至redis完成。");
+    }
+
+    /**
+     * 从容器中去掉顶级用户
+     * @param userInfos
+     * @return
+     */
+    private List<UserInfo> removeTopUser(List<UserInfo> userInfos) {
         userInfos.removeIf(new Predicate<UserInfo>() {
             @Override
             public boolean test(UserInfo userInfo) {
                 if ("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAA1".equals(userInfo.getUserId())) {
                     return true;
                 }
-               return false;
+                return false;
             }
         });
-
-        List<UserInfoVO> userInfoVOs = userInfos.stream().map(e -> UserInfo2VO.convert(e)).collect(Collectors.toList());
-
-        return userInfoVOs;
+        return userInfos;
     }
 
 }

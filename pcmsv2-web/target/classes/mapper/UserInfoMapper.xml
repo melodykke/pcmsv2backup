@@ -187,4 +187,11 @@
     <select id="findAllUsername" resultType="String">
         SELECT username FROM user_info
     </select>
+
+    <update id="changeBaseInfoIdToUUID">
+        UPDATE user_info
+        SET base_info_id = #{baseInfoId}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>
