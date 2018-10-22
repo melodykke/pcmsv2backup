@@ -46,7 +46,7 @@ public interface BaseInfoMapper {
      * @param regionId
      * @return
      */
-    List<BaseInfo> findByRegionId(int regionId);
+    List<BaseInfo> findByRegion(Region region);
 
     /**
      * 查找所有水库名 （防止命名重复）

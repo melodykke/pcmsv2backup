@@ -29,8 +29,8 @@ public class ProjectMonthlyReportMapperTest {
         baseInfoIds.add("8a8082816458ab31016458ab49d40091");
         baseInfoIds.add("4028e4ec64acd3340164acd6159b0007");
 
-        List<ProjectMonthlyReport> projectMonthlyReports = projectMonthlyReportMapper.findByBaseInfoIdsInWithImg(baseInfoIds);
-        System.out.println(projectMonthlyReports);
+       /* List<ProjectMonthlyReport> projectMonthlyReports = projectMonthlyReportMapper.findByBaseInfoIdsInWithImgDuring(baseInfoIds);
+        System.out.println(projectMonthlyReports);*/
     }
 
 }

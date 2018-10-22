@@ -27,7 +27,7 @@ public class RegionServiceImpl implements RegionService {
      * @return
      */
     @Override
-    public List<Region> findChildrenRecursive(Integer regionId) {
+    public List<Region> findChildrenRecursive(int regionId) {
 
         Region region = regionMapper.selectByPrimaryKey(regionId);
 
@@ -41,6 +41,12 @@ public class RegionServiceImpl implements RegionService {
 
         return children;
     }
+
+    @Override
+    public Region findByRegionId(int regionId) {
+        return regionMapper.selectByPrimaryKey(regionId);
+    }
+
 
     public void recurse(List<Region> regions) {
 

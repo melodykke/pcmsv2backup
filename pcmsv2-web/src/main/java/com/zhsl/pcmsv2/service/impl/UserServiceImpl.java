@@ -8,8 +8,11 @@ import com.zhsl.pcmsv2.convertor.tovo.UserInfo2VO;
 import com.zhsl.pcmsv2.dto.UserInfoDTO;
 import com.zhsl.pcmsv2.enums.RedisKeys;
 import com.zhsl.pcmsv2.exception.SysException;
+import com.zhsl.pcmsv2.mapper.RegionMapper;
 import com.zhsl.pcmsv2.mapper.UserInfoMapper;
+import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.service.RegionService;
 import com.zhsl.pcmsv2.service.UserService;
 import com.zhsl.pcmsv2.util.BeanUtils;
 import com.zhsl.pcmsv2.util.UUIDUtils;
@@ -46,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RegionMapper regionMapper;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -105,7 +111,16 @@ public class UserServiceImpl implements UserService {
             throw new SysException(SysEnum.DUPLICATED_RECORD);
         }
 
-        UserInfo userInfo = convert(userInfoDTO);
+        int regionId = userInfoDTO.getRegionId();
+
+        Region region = regionMapper.selectByPrimaryKey(regionId);
+
+        if (region == null) {
+            log.error("【用户】 创建用户时，拟创建用户的地区错误");
+            throw new SysException(SysEnum.INVALID_INFO_RECEIVED_ERROR);
+        }
+
+        UserInfo userInfo = convert(userInfoDTO, region);
 
         userInfo.setUserId(UUIDUtils.getUUID());
         userInfo.setCreateTime(new Date());

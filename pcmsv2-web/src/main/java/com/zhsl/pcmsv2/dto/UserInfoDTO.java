@@ -1,13 +1,12 @@
 package com.zhsl.pcmsv2.dto;
 
-import com.zhsl.pcmsv2.model.SysRole;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
+
 
 @Data
 public class UserInfoDTO {
@@ -31,4 +30,7 @@ public class UserInfoDTO {
     @NotBlank(message = "账号名不能为空！")
     @Size(min = 4, max = 12, message = "账号必须由4至12个字母组成")
     private String username;
+
+    @NotNull(message = "用户所在地区不能为空！")
+    private Integer regionId;
 }

@@ -212,7 +212,7 @@
         from base_info
     </select>
 
-    <select id="findByRegionId" resultMap="BaseResultMap">
+    <select id="findByRegion" resultMap="BaseResultMap">
          select base_info_id, area_coverage, branch_project_amount, branch_project_overview,
             catchment_area, cell_project_amount, cell_project_overview, central_accumulative_payment,
             central_investment, construction_land, county, create_time, dam_type, flood_control_elevation,

@@ -1,10 +1,12 @@
 package com.zhsl.pcmsv2.service;
 
 import com.zhsl.pcmsv2.dto.BaseInfoDTO;
+import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Feedback;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface BaseInfoService {
@@ -43,7 +45,7 @@ public interface BaseInfoService {
      * @param regionId
      * @return
      */
-    List<BaseInfoVO> findByRegionId(Integer regionId);
+    List<BaseInfoVO> findByRegionId(HttpServletRequest request);
 
     /**
      * 将数据库中的所有baseInfo信息缓存至redis中 key：allBaseInfo

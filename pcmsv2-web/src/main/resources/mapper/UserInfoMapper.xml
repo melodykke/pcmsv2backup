@@ -30,7 +30,7 @@
         values (#{userId,jdbcType=VARCHAR}, #{accountNonLocked,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
         #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{updateTime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{baseInfoId,jdbcType=VARCHAR},
-        #{parentId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{region.region_id})
+        #{parentId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{region.regionId, jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

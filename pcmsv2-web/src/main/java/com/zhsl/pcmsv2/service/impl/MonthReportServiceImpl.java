@@ -11,22 +11,23 @@ import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.BaseInfoMapper;
 import com.zhsl.pcmsv2.mapper.ProjectMonthlyReportImgMapper;
 import com.zhsl.pcmsv2.mapper.ProjectMonthlyReportMapper;
-import com.zhsl.pcmsv2.model.BaseInfo;
-import com.zhsl.pcmsv2.model.ProjectMonthlyReport;
-import com.zhsl.pcmsv2.model.Region;
-import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.model.*;
 import com.zhsl.pcmsv2.service.MonthReportService;
 import com.zhsl.pcmsv2.service.RegionService;
 import com.zhsl.pcmsv2.util.BeanUtils;
 import com.zhsl.pcmsv2.util.CalendarUtil;
 import com.zhsl.pcmsv2.util.PmrCalculator;
+import com.zhsl.pcmsv2.util.RoleCheckUtil;
 import com.zhsl.pcmsv2.vo.ProjectMonthlyReportVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -266,6 +267,28 @@ public class MonthReportServiceImpl implements MonthReportService {
             throw new SysException(SysEnum.INVALID_KEY_RECEIVED_ERROR);
         }
 
+        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Region region = thisUser.getRegion();
+
+        if (region == null) {
+            log.error("【月报】 查找月报时，查无用户的区域信息");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+
+        if (region.getRegionId() == 0) {
+            log.error("【月报】 非法调用，获取用户所在区域所有月报信息。");
+            return null;
+        }
+
+        List<ProjectMonthlyReport> projectMonthlyReports = findByRegionDuring(null, null, region);
+        List<String> projectMonthlyReportIds = projectMonthlyReports.stream().map(e -> e.getProjectMonthlyReportId())
+                .collect(Collectors.toList());
+
+        if (!projectMonthlyReportIds.contains(pmrId)) {
+            log.error("【月报】 查找月报时，不能查询不属于自己辖区的水库月报");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+
         ProjectMonthlyReport projectMonthlyReport = pmrMapper.findByIdWithImg(pmrId);
 
         if (projectMonthlyReport == null) {
@@ -360,50 +383,60 @@ public class MonthReportServiceImpl implements MonthReportService {
 
     /**
      * 根据登陆用户所属地区获取该区域下的所有月报信息
+     * 只有最高级用户才能向regionId里传非0值
+     * 按时间区间
      * @return
      */
     @Override
-    public List<ProjectMonthlyReport> findAllPmrViaUserRegion() {
+    public List<ProjectMonthlyReport> findAllPmrViaUserRegionByTimeDuration(int regionId, String startDate, String endDate) {
 
-        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Region region = null;
 
-        if (userInfo == null) {
-            log.error("【月报】 在获取用户所在区域所有月报信息时，用户未登录或身份信息有误");
+        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (regionId == 0) {
+            if (thisUser == null) {
+                log.error("【月报】 在获取用户所在区域所有月报信息时，用户未登录或身份信息有误");
+                return new ArrayList<>();
+            }
+            region = thisUser.getRegion();
+        } else if (regionId > 0){
+            if (RoleCheckUtil.checkIfPossessProvinceRole(thisUser)) {
+                region = regionService.findByRegionId(regionId);
+            }
+        }
+
+        if (region == null) {
+            log.error("【月报】 在获取用户所在区域所有月报信息时，用户区域或查询区域信息为空");
             return new ArrayList<>();
         }
 
-        Region thisUserRegion = userInfo.getRegion();
-
-        if (thisUserRegion == null) {
-            log.error("【月报】 在获取用户所在区域所有月报信息时，用户区域信息为空");
-            return new ArrayList<>();
-        }
-
-        int thisUserRegionId = thisUserRegion.getRegionId();
-
-        if (thisUserRegionId == 0) {
-            log.error("【月报】 非法调用，获取用户所在区域所有月报信息。");
-            return new ArrayList<>();
-        }
-
-        List<Region> leafRegions = regionService.findChildrenRecursive(thisUserRegionId);
-
-        List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
-        List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
-
-        List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdsInWithImg(baseInfoIds);
+        List<ProjectMonthlyReport> projectMonthlyReports = findByRegionDuring(startDate, endDate, region);
 
         return projectMonthlyReports;
     }
 
     /**
      * 计算登陆用户所在区域所有工程的投资完成情况
+     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
+     * 最高级用户 即 ROLE_PROVINCE 可以使用非0 regionId 参数 以查询某个特定区域的情况
      * @return
      */
     @Override
-    public BigDecimal calcOverallInvestmentCompletion() {
+    public BigDecimal calcOverallInvestmentCompletion(HttpServletRequest request) {
+        String startDate = "";
+        String endDate = "";
+        int regionId = 0;
+        try {
+            startDate = ServletRequestUtils.getStringParameter(request,"startDate");
+            endDate = ServletRequestUtils.getStringParameter(request, "endDate");
+            regionId = ServletRequestUtils.getIntParameter(request, "regionId")==null? 0 :
+                    ServletRequestUtils.getIntParameter(request, "regionId");
+        } catch (ServletRequestBindingException e) {
+            log.error("【月报】 计算用户区域内所有工程总投资完成时， 用户端传来的startDate或endDate参数接收出错，程序将采用默认值");
+        }
 
-        List<ProjectMonthlyReport> projectMonthlyReports = findAllPmrViaUserRegion();
+        List<ProjectMonthlyReport> projectMonthlyReports = findAllPmrViaUserRegionByTimeDuration(regionId, startDate, endDate);
 
         BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
 
@@ -431,5 +464,29 @@ public class MonthReportServiceImpl implements MonthReportService {
             }
         });
         log.error("月报信息同步至redis完成。");
+    }
+
+    /**
+     * 根据时间区间 查找某区域的所有水库 在特定时间区间内的 所有月报
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<ProjectMonthlyReport> findByRegionDuring(String startDate, String endDate, Region region) {
+
+        if (startDate == null || "".equals(startDate)) {
+            startDate = ProjectMonthlyReportMapper.DEFAULT_START_DATE;
+        }
+
+        int thisUserRegionId = region.getRegionId();
+
+        List<Region> leafRegions = regionService.findChildrenRecursive(thisUserRegionId);
+
+        List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
+        List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
+
+        List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdsInWithImgDuring(startDate, endDate, baseInfoIds);
+
+        return projectMonthlyReports;
     }
 }

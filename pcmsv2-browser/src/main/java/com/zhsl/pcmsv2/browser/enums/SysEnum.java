@@ -11,6 +11,7 @@ public enum SysEnum {
     NOT_EXIST_RECORD(9996, "不存在的记录"),
     DUPLICATED_RECORD(9997, "重复的记录"),
     PRECONDITION_MISSING_RECORD(9998, "前置条件缺失"),
+    ILLEGAL_OPERATION(9999, "非法的操作"),
 
     BOOLEAN_RESULT_SUCCESS(1, "成功"),
     BOOLEAN_RESULT_FAIL(0, "失败"),

@@ -8,13 +8,18 @@ import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.service.BaseInfoService;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -70,10 +75,17 @@ public class BaseInfoController {
         }
     }
 
-    @GetMapping("/byregion/{id:\\d+}")
-    public ResultVO getByRegionId(@PathVariable int id) {
+    /**
+     * 可配置参数为"regionId"
+     * @param request
+     * @return
+     */
+    @GetMapping("/byregion")
+    @ApiOperation(value = "按登陆用户所在区域获取所有水库基础信息 (management)")
+    @ApiImplicitParam(name = "regionId", value = "区域ID 此项只能最高级用户才能传参", required = false, dataType = "Integer")
+    public ResultVO getByRegionId(HttpServletRequest request) {
 
-        List<BaseInfoVO> baseInfoVOs = baseInfoService.findByRegionId(id);
+        List<BaseInfoVO> baseInfoVOs = baseInfoService.findByRegionId(request);
 
         return ResultUtil.success(baseInfoVOs);
     }

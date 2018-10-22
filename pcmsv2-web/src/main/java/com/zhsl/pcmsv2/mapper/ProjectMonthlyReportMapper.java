@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ProjectMonthlyReportMapper {
+
+    public static final String DEFAULT_START_DATE = "2000-01-01";
+
     /**
      * 根据主键删除
      * @param projectMonthlyReportId
@@ -70,6 +73,8 @@ public interface ProjectMonthlyReportMapper {
      * @param baseInfoIds
      * @return
      */
-    List<ProjectMonthlyReport> findByBaseInfoIdsInWithImg(List<String> baseInfoIds);
+    List<ProjectMonthlyReport> findByBaseInfoIdsInWithImgDuring(@Param("startDate") String startDate,
+                                                                @Param("endDate") String endDate,
+                                                                @Param("baseInfoIds") List<String> baseInfoIds);
 
 }

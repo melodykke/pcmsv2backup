@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PmrCalculator {
 
-    // 计算总的工程部分投资完成
+    // 计算总的完成投资 （按概算构成分）
     public static BigDecimal calOverallInvestmentCompletion(List<ProjectMonthlyReport> projectMonthlyReportList) {
 
         BigDecimal result = new BigDecimal(0);
@@ -22,9 +22,14 @@ public class PmrCalculator {
                 BigDecimal independentCost = pmr.getIndependentCost();
                 BigDecimal electromechanicalEquipment = pmr.getElectromechanicalEquipment();
                 BigDecimal temporaryWork = pmr.getTemporaryWork();
+                BigDecimal resettlementArrangement = pmr.getResettlementArrangement();
+                BigDecimal waterConservation = pmr.getWaterConservation();
+                BigDecimal environmentalProtection = pmr.getEnvironmentalProtection();
+                BigDecimal otherCost = pmr.getOtherCost();
 
                 BigDecimal singlePmr = civilEngineering.add(metalMechanism.add(independentCost
-                        .add(electromechanicalEquipment.add(temporaryWork))));
+                        .add(electromechanicalEquipment.add(temporaryWork.add(resettlementArrangement
+                                .add(waterConservation.add(environmentalProtection.add(otherCost))))))));
                 result = result.add(singlePmr);
             }
         }

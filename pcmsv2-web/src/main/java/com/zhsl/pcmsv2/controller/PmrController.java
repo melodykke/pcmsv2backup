@@ -5,6 +5,8 @@ import com.zhsl.pcmsv2.browser.util.ResultUtil;
 import com.zhsl.pcmsv2.dto.ProjectMonthlyReportDTO;
 import com.zhsl.pcmsv2.service.MonthReportService;
 import com.zhsl.pcmsv2.vo.ProjectMonthlyReportVO;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -105,7 +107,8 @@ public class PmrController {
     }
 
     @GetMapping("/period")
-    public ResultVO findByBaseInfoIdAndPeriodWithImg(HttpServletRequest request, HttpServletResponse response) {
+    @ApiOperation(value = "普通用户调用的时间区间查询方法，只能查询自己的月报")
+    public ResultVO findByBaseInfoIdAndPeriodWithImg(HttpServletRequest request) {
         String startDate = null;
         String endDate = null;
         try {
@@ -135,10 +138,17 @@ public class PmrController {
      */
     @GetMapping("/management/overallinvestmentcompletion")
     @ApiOperation(value = "按登陆用户所在区域获取所有水库月报的投资完成情况总和(management)")
-    public ResultVO getOverallinvestmentcompletion() {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", value = "月报开始时间", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "endDate", value = "月报结束时间", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "regionId", value = "需要计算的区域ID，此项只能最高级用户才能传参", required = false, dataType = "Integer")
+    })
+    public ResultVO getOverallinvestmentcompletion(HttpServletRequest request) {
 
-        BigDecimal result = monthReportService.calcOverallInvestmentCompletion();
+        BigDecimal result = monthReportService.calcOverallInvestmentCompletion(request);
 
         return ResultUtil.success(result);
     }
+
+
 }

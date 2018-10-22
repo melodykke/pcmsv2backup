@@ -12,9 +12,12 @@ import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.BaseInfoMapper;
 import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Feedback;
+import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.service.BaseInfoService;
+import com.zhsl.pcmsv2.service.RegionService;
 import com.zhsl.pcmsv2.util.BeanUtils;
+import com.zhsl.pcmsv2.util.RoleCheckUtil;
 import com.zhsl.pcmsv2.util.UUIDUtils;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +26,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,13 +48,15 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     private BaseInfoMapper baseInfoMapper;
 
     @Autowired
+    private RegionService regionService;
+
+    @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
-
 
 
     /**
      * 删除水库
+     *
      * @param baseInfoId
      * @return
      */
@@ -85,13 +93,14 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         baseInfo.setUpdateTime(new Date());
         baseInfo.setOwner(userInfo.getUsername());
 
-        int result =  baseInfoMapper.updateByPrimaryKey(baseInfo);
+        int result = baseInfoMapper.updateByPrimaryKey(baseInfo);
 
         return result;
     }
 
     /**
      * 查询所有水库的基础信息， 如果没有则返回空的容器。
+     *
      * @return
      */
     @Override
@@ -148,7 +157,8 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (baseInfo.getOwner() == null || "".equals(baseInfo.getOwner())) {
-            baseInfo.setOwner(thisUser.getUsername()); ;
+            baseInfo.setOwner(thisUser.getUsername());
+            ;
         }
 
         baseInfo.setBaseInfoId(UUIDUtils.getUUID());
@@ -162,6 +172,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
     /**
      * 按照ID查找水库基础信息
+     *
      * @param baseInfoId
      * @return
      */
@@ -181,12 +192,39 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     }
 
     @Override
-    public List<BaseInfoVO> findByRegionId(Integer regionId) {
+    public List<BaseInfoVO> findByRegionId(HttpServletRequest request) {
 
-        List<BaseInfo> baseInfos = baseInfoMapper.findByRegionId(regionId);
+        Region region = null;
+
+        int regionId = 0;
+
+        try {
+            regionId = ServletRequestUtils.getIntParameter(request, "regionId")==null? 0 :
+                    ServletRequestUtils.getIntParameter(request, "regionId");
+        } catch (ServletRequestBindingException e) {
+            log.info("【基础信息】 通过regionId查找区域水库基本信息时，没有接收到regionId参数");
+        }
+
+        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (regionId == 0) {
+            region = thisUser.getRegion();
+        } else if (regionId > 0) {
+            if (RoleCheckUtil.checkIfPossessProvinceRole(thisUser)) {
+                region = regionService.findByRegionId(regionId);
+
+            }
+        }
+
+        if (region == null) {
+            log.error("【基础信息】 按区域查询项目基础信息时，作查询操作的用户没有有效的区域信息");
+            throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+        }
+        List<Region> childrenRegion = regionService.findChildrenRecursive(region.getRegionId());
+        List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(childrenRegion);
 
         if (baseInfos == null) {
-            log.info("【按区域查询项目基础信息时，没有查找到任何记录】");
+
             return new ArrayList<>();
         }
 

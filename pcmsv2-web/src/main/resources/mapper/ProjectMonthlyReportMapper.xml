@@ -224,7 +224,7 @@
         </where>
     </select>
 
-    <select id="findByBaseInfoIdsInWithImg" resultMap="WithImgsResultMap">
+    <select id="findByBaseInfoIdsInWithImgDuring" resultMap="WithImgsResultMap">
         SELECT pmr.project_monthly_report_id, pmr.available_central_investment, pmr.available_local_investment,
         pmr.available_provincial_investment, pmr.backfill, pmr.civil_engineering, pmr.concrete, pmr.construction_content,
         pmr.create_time, pmr.difficulty, pmr.electromechanical_equipment, pmr.environmental_protection, pmr.grout,
@@ -243,8 +243,8 @@
         <where>
             pmr.base_info_id IN
             <choose>
-                <when test="list != null and list.size > 0">
-                    <foreach collection="list" open="(" close=")" separator="," index="index" item="baseInfoId">
+                <when test="baseInfoIds != null and baseInfoIds.size > 0">
+                    <foreach collection="baseInfoIds" open="(" close=")" separator="," index="index" item="baseInfoId">
                         #{baseInfoId}
                     </foreach>
                 </when>
@@ -252,6 +252,15 @@
                     (NULL)
                 </otherwise>
             </choose>
+            <if test="startDate != null and startDate != ''">
+                AND pmr.submit_date >= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND pmr.submit_date <![CDATA[<=]]> #{endDate}
+            </if>
+            <if test="endDate == null || endDate == ''">
+                AND pmr.submit_date <![CDATA[<=]]> NOW()
+            </if>
         </where>
     </select>
 </mapper>

@@ -15,7 +15,11 @@ public class Pcmsv2AuthorizeConfigProvider implements AuthorizeConfigProvider {
                 .antMatchers("baseinfo/**").hasRole("PROVINCE")
                 .antMatchers(HttpMethod.PUT, "/baseinfo").hasRole("PROVINCE")
                 .antMatchers(HttpMethod.POST, "/baseinfo").hasRole("PLP")
-                .antMatchers("/baseinfo/mybaseinfo").hasRole("PLP");
+                .antMatchers("/baseinfo/mybaseinfo").hasRole("PLP")
+                .antMatchers("/pmr/management/*").hasAnyRole("PROVINCE, DEPARTMENT, CITY, COUNTY")
+                .antMatchers(HttpMethod.PUT,"/pmr/management/*").hasRole("PROVINCE")
+                .antMatchers(HttpMethod.DELETE,"/pmr/management/*").hasRole("PROVINCE")
+                .antMatchers("/pmr").hasRole("PLP");
 
     }
 }

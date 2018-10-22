@@ -11,6 +11,13 @@ public interface RegionService {
      * @param regionId
      * @return
      */
-    List<Region> findChildrenRecursive(Integer regionId);
+    List<Region> findChildrenRecursive(int regionId);
+
+    /**
+     * 主键查找区域
+     * @param regionId
+     * @return
+     */
+    Region findByRegionId(int regionId);
 
 }
