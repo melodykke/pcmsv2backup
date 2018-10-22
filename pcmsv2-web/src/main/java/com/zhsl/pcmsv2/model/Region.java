@@ -1,6 +1,7 @@
 package com.zhsl.pcmsv2.model;
 
 public class Region {
+
     private Integer regionId;
 
     private String regionCode;
@@ -8,6 +9,7 @@ public class Region {
     private String regionName;
 
     private Integer parentId;
+
 
     public Integer getRegionId() {
         return regionId;
@@ -39,5 +41,15 @@ public class Region {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Region{" +
+                "regionId=" + regionId +
+                ", regionCode='" + regionCode + '\'' +
+                ", regionName='" + regionName + '\'' +
+                ", parentId=" + parentId +
+                '}';
     }
 }

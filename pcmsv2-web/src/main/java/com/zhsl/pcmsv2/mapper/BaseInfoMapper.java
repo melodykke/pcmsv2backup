@@ -1,6 +1,7 @@
 package com.zhsl.pcmsv2.mapper;
 
 import com.zhsl.pcmsv2.model.BaseInfo;
+import com.zhsl.pcmsv2.model.Region;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -57,4 +58,11 @@ public interface BaseInfoMapper {
      *
      */
     int batchInsert(@Param("baseInfos") List<BaseInfo> baseInfos);
+
+    /**
+     * 查找属于这些区域的水库
+     * @param regions
+     * @return
+     */
+    List<BaseInfo> findByRegionsIn(List<Region> regions);
 }

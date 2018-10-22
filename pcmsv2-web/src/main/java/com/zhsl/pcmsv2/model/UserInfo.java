@@ -30,6 +30,8 @@ public class UserInfo implements UserDetails{
 
     private List<SysRole> roles;
 
+    private Region region;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -139,6 +141,14 @@ public class UserInfo implements UserDetails{
         this.roles = roles;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -153,6 +163,7 @@ public class UserInfo implements UserDetails{
                 ", parentId='" + parentId + '\'' +
                 ", openId='" + openId + '\'' +
                 ", roles=" + roles +
+                ", region=" + region +
                 '}';
     }
 }

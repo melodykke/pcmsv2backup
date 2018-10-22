@@ -10,6 +10,7 @@ public enum SysEnum {
     INVALID_PASSWORD_FORMAT(9995, "密码格式错误"),
     NOT_EXIST_RECORD(9996, "不存在的记录"),
     DUPLICATED_RECORD(9997, "重复的记录"),
+    PRECONDITION_MISSING_RECORD(9998, "前置条件缺失"),
 
     BOOLEAN_RESULT_SUCCESS(1, "成功"),
     BOOLEAN_RESULT_FAIL(0, "失败"),

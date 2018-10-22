@@ -19,19 +19,20 @@ import static org.junit.Assert.*;
 public class UserInfoMapperTest {
 
 
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 
 
     @Test
     public void findByUsername() throws Exception {
-        UserInfo userInfo = userInfoMapper.findByUsername("zatybsk");
+        UserInfo userInfo = userInfoMapper.findByUsername("zysswj");
         System.out.println(userInfo);
     }
 
     @Test
     public void findOneWithRolesAndPrivilegesByUsernameOrId() throws Exception {
-        UserInfo userInfo = userInfoMapper.findOneWithRolesAndPrivilegesByUsernameOrId("zatybsk", null);
+        UserInfo userInfo = userInfoMapper.findOneWithRolesAndPrivilegesByUsernameOrId("zysswj", null);
         System.out.println(userInfo);
     }
 
@@ -41,6 +42,42 @@ public class UserInfoMapperTest {
         System.out.println(usernames);
     }
 
+    @Test
+    public void selectByPrimaryKey() throws Exception {
+        UserInfo userInfo = userInfoMapper.selectByPrimaryKey("56B122AD-AABF-43G4-B14F-DBBREF65LYD2");
+        System.out.println(userInfo);
+    }
+
+    @Test
+    public void selectAll() throws Exception {
+        List<UserInfo> userInfos = userInfoMapper.selectAll();
+        System.out.println(userInfos);
+    }
+
+    @Test
+    public void findOneWithRolesByUsernameOrId() throws Exception {
+        UserInfo userInfo =  userInfoMapper.findOneWithRolesByUsernameOrId(null, "56B122AD-AABF-43G4-B14F-DBBREF65LYD2");
+        System.out.println(userInfo);
+    }
+
+    @Test
+    public void findParentByParentId() throws Exception {
+        UserInfo userInfo1 =  userInfoMapper.findOneWithRolesByUsernameOrId(null, "56B122AD-AABF-43G4-B14F-DBBREF65LYD2");
+        UserInfo userInfo2 =  userInfoMapper.findParentByParentId(userInfo1.getParentId());
+        System.out.println(userInfo2);
+    }
+
+    @Test
+    public void findChildrenByUserId() throws Exception {
+        List<UserInfo> userInfos = userInfoMapper.findChildrenByUserId("GCGLB567-0000-0000-0000-000000000000");
+        System.out.println(userInfos);
+    }
+
+    @Test
+    public void findAllInferior() throws Exception {
+        List<UserInfo> userInfos = userInfoMapper.findAllInferior("GCGLB567-0000-0000-0000-000000000000");
+        System.out.println(userInfos);
+    }
    /* @Test
     public void changeBaseInfoIdToUUID() throws Exception {
 

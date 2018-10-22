@@ -13,6 +13,8 @@
         <result column="base_info_id" jdbcType="VARCHAR" property="baseInfoId"/>
         <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
         <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <association property="region" columnPrefix="region_"
+                     resultMap="com.zhsl.pcmsv2.mapper.RegionMapper.BaseResultMap" />
     </resultMap>
 
     <resultMap id="WithRolesResultMap" type="com.zhsl.pcmsv2.model.UserInfo" extends="BaseResultMap">
@@ -24,11 +26,11 @@
         insert into user_info (user_id, account_non_locked, create_time,
         `name`, `password`,
         update_time, username, base_info_id,
-        parent_id, open_id)
+        parent_id, open_id, region_id)
         values (#{userId,jdbcType=VARCHAR}, #{accountNonLocked,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
         #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{updateTime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{baseInfoId,jdbcType=VARCHAR},
-        #{parentId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR})
+        #{parentId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{region.region_id})
     </insert>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -46,37 +48,49 @@
           username = #{username,jdbcType=VARCHAR},
           base_info_id = #{baseInfoId,jdbcType=VARCHAR},
           parent_id = #{parentId,jdbcType=VARCHAR},
-          open_id = #{openId,jdbcType=VARCHAR}
+          open_id = #{openId,jdbcType=VARCHAR},
+          region_id = #{region.regionId, jdbcType=INTEGER}
         where user_id = #{userId,jdbcType=VARCHAR}
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select user_id, account_non_locked, create_time, `name`, `password`, update_time, username,
-        base_info_id, parent_id, open_id
-        from user_info
+        select u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
+            u.base_info_id, u.parent_id, u.open_id,
+            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
+            r.parent_id region_parent_id
+        from user_info u LEFT JOIN region r ON u.region_id = r.region_id
         where user_id = #{userId,jdbcType=VARCHAR}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select user_id, account_non_locked, create_time, `name`, `password`, update_time, username,
-        base_info_id, parent_id, open_id
-        from user_info
+        select u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
+            u.base_info_id, u.parent_id, u.open_id,
+            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
+            r.parent_id region_parent_id
+        from user_info u
+          LEFT JOIN region r ON u.region_id = r.region_id
     </select>
 
 
     <select id="findByUsername" resultMap="BaseResultMap">
-        SELECT user_id, account_non_locked, create_time, `name`, `password`, update_time, username,
-        base_info_id, parent_id, open_id
-        FROM user_info
-        WHERE username = #{_parameter}
+        SELECT u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
+            u.base_info_id, u.parent_id, u.open_id,
+            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
+            r.parent_id region_parent_id
+        from user_info u
+          LEFT JOIN region r ON u.region_id = r.region_id
+        WHERE u.username = #{_parameter}
     </select>
 
     <select id="findOneWithRolesByUsernameOrId" resultMap="WithRolesResultMap">
         SELECT u.user_id, u.account_non_locked, u.create_time, u.name, u.password, u.update_time, u.username,
         u.base_info_id, u.parent_id, u.open_id,
+        rg.region_id region_region_id, rg.region_code region_region_code, rg.region_name region_region_name,
+        rg.parent_id region_parent_id,
         r.role_id role_role_id, r.available role_available, r.description role_description, r.role role_role
         FROM
         user_info u
+        LEFT JOIN region rg ON u.region_id = rg.region_id
         LEFT JOIN sys_user_role ur on u.user_id = ur.user_id
         LEFT JOIN sys_role r on ur.role_id = r.role_id
         <where>
@@ -97,6 +111,8 @@
     <select id="findOneWithRolesAndPrivilegesByUsernameOrId" resultMap="WithRolesResultMap">
         SELECT u.user_id, u.account_non_locked, u.create_time, u.name, u.password, u.update_time, u.username,
         u.base_info_id, u.parent_id, u.open_id,
+        rg.region_id region_region_id, rg.region_code region_region_code, rg.region_name region_region_name,
+        rg.parent_id region_parent_id,
         r.role_id role_role_id, r.available role_available, r.description role_description, r.role role_role,
         p.permission_id role_permission_permission_id, p.available role_permission_available, p.name
         role_permission_name,
@@ -105,6 +121,7 @@
         p.resource_type role_permission_resource_type, p.url role_permission_url
         FROM
         user_info u
+        LEFT JOIN region rg on u.region_id = rg.region_id
         LEFT JOIN sys_user_role ur on u.user_id = ur.user_id
         LEFT JOIN sys_role r on ur.role_id = r.role_id
         LEFT JOIN sys_role_permission rp on r.role_id = rp.role_id
@@ -125,17 +142,21 @@
     </select>
 
     <select id="findParentByParentId" resultMap="BaseResultMap">
-        SELECT user_id, account_non_locked, create_time, `name`, `password`, update_time, username,
-    base_info_id, parent_id, open_id
-        FROM user_info
+        SELECT u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
+            u.base_info_id, u.parent_id, u.open_id,
+            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
+            r.parent_id region_parent_id
+        from user_info u LEFT JOIN region r ON u.region_id = r.region_id
         WHERE user_id = #{parentId};
     </select>
 
     <select id="findChildrenByUserId" resultMap="BaseResultMap">
-        SELECT user_id, account_non_locked, create_time, `name`, `password`, update_time, username,
-          base_info_id, parent_id, open_id
-        FROM user_info
-        WHERE parent_id = #{userId};
+        SELECT u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
+            u.base_info_id, u.parent_id, u.open_id,
+            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
+            r.parent_id region_parent_id
+        from user_info u LEFT JOIN region r ON u.region_id = r.region_id
+        WHERE u.parent_id = #{userId};
     </select>
 
     <update id="batchUpdateBaseInfoId">
@@ -159,6 +180,8 @@
     <select id="findAllInferior" resultMap="WithRolesResultMap">
         SELECT u.user_id, u.account_non_locked, u.create_time, u.name, u.password, u.update_time, u.username,
         u.base_info_id, u.parent_id, u.open_id,
+        rg.region_id region_region_id, rg.region_code region_region_code, rg.region_name region_region_name,
+        rg.parent_id region_parent_id,
         r.role_id role_role_id, r.available role_available, r.description role_description, r.role role_role,
         p.permission_id role_permission_permission_id, p.available role_permission_available, p.name
         role_permission_name,
@@ -167,6 +190,7 @@
         p.resource_type role_permission_resource_type, p.url role_permission_url
         FROM
         user_info u
+        LEFT JOIN region rg ON u.region_id = rg.region_id
         LEFT JOIN sys_user_role ur on u.user_id = ur.user_id
         LEFT JOIN sys_role r on ur.role_id = r.role_id
         LEFT JOIN sys_role_permission rp on r.role_id = rp.role_id

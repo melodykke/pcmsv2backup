@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum RedisKeys {
     ALLUSERINFO("allUserInfo"),
-    ALLBASEINFO("allBaseInfo")
+    ALLBASEINFO("allBaseInfo"),
+    ALLPMR("allPmr")
     ;
 
     private String key;
