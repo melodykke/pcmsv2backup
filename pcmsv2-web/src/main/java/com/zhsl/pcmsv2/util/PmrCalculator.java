@@ -36,6 +36,28 @@ public class PmrCalculator {
         return result;
     }
 
+    // 计算总到位资金 （中央、省、地方自筹）
+    public static BigDecimal calOverallAvailableInvestment(List<ProjectMonthlyReport> projectMonthlyReportList) {
+
+        BigDecimal result = new BigDecimal(0);
+
+        if (projectMonthlyReportList.size() == 0) {
+            return result;
+        } else {
+            for (ProjectMonthlyReport pmr : projectMonthlyReportList) {
+
+                BigDecimal availableCentralInvestment = pmr.getAvailableCentralInvestment();
+                BigDecimal availableLocalInvestment = pmr.getAvailableLocalInvestment();
+                BigDecimal availableProvincialInvestment = pmr.getAvailableProvincialInvestment();
+
+                BigDecimal singlePmr = availableCentralInvestment.add(availableLocalInvestment.
+                        add(availableProvincialInvestment));
+                result = result.add(singlePmr);
+            }
+        }
+        return result;
+    }
+
 
 
 }

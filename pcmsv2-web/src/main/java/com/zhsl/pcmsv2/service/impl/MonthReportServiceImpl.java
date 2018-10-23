@@ -7,6 +7,7 @@ import com.zhsl.pcmsv2.convertor.dto2model.PmrDTO2Model;
 import com.zhsl.pcmsv2.convertor.tovo.Pmr2VO;
 import com.zhsl.pcmsv2.dto.ProjectMonthlyReportDTO;
 import com.zhsl.pcmsv2.enums.RedisKeys;
+import com.zhsl.pcmsv2.enums.RoleEnum;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.BaseInfoMapper;
 import com.zhsl.pcmsv2.mapper.ProjectMonthlyReportImgMapper;
@@ -401,7 +402,7 @@ public class MonthReportServiceImpl implements MonthReportService {
             }
             region = thisUser.getRegion();
         } else if (regionId > 0){
-            if (RoleCheckUtil.checkIfPossessProvinceRole(thisUser)) {
+            if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PROVINCE.getKey())) {
                 region = regionService.findByRegionId(regionId);
             } else {
                 log.error("【月报】 没有权限作此操作");

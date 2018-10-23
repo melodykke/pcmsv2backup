@@ -8,10 +8,12 @@ import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.service.BaseInfoService;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
+import com.zhsl.pcmsv2.vo.LifeCircle;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -104,6 +107,25 @@ public class BaseInfoController {
     }
 
     /**
+     * 用户自己更新自己水库的动工时间
+     * 如果水库的动工时间节点状态还处于动工前（开始或项目前期）则不能更改动工时间
+     * @param commenceDate
+     * @return
+     */
+    @PutMapping("/commencedate")
+    public ResultVO updateCommenceDate(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date commenceDate) {
+
+        int result = baseInfoService.updateCommenceDate(commenceDate);
+
+        if (result == 1) {
+            return ResultUtil.success();
+        } else {
+            return ResultUtil.failed();
+        }
+
+    }
+
+    /**
      * 获取自己的水库信息
      * 只有地方业主 PLP 才能访问
      * @return
@@ -133,5 +155,15 @@ public class BaseInfoController {
         return ResultUtil.success(baseInfoVOs);
     }
 
+    /**
+     * 管理员获取其所管辖区域内水库的生命中周期相关信息
+     * @return
+     */
+    @GetMapping("lifecircle")
+    public ResultVO lifeCircle() {
 
+        List<LifeCircle> lifeCircles = baseInfoService.buildLifeCircle();
+
+        return ResultUtil.success(lifeCircles);
+    }
 }

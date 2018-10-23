@@ -122,6 +122,8 @@ public class BaseInfo {
 
     private String affiliatedTo;
 
+    private Date commenceDate;
+
 
     public String getBaseInfoId() {
         return baseInfoId;
@@ -595,4 +597,11 @@ public class BaseInfo {
         this.affiliatedTo = affiliatedTo;
     }
 
+    public Date getCommenceDate() {
+        return commenceDate;
+    }
+
+    public void setCommenceDate(Date commenceDate) {
+        this.commenceDate = commenceDate;
+    }
 }

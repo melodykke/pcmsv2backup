@@ -8,20 +8,24 @@ import com.zhsl.pcmsv2.convertor.dto2model.BaseInfoDTO2Model;
 import com.zhsl.pcmsv2.convertor.tovo.BaseInfo2VO;
 import com.zhsl.pcmsv2.dto.BaseInfoDTO;
 import com.zhsl.pcmsv2.enums.RedisKeys;
+import com.zhsl.pcmsv2.enums.RoleEnum;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.BaseInfoMapper;
 import com.zhsl.pcmsv2.mapper.PlantStateMapper;
+import com.zhsl.pcmsv2.mapper.ProjectMonthlyReportMapper;
 import com.zhsl.pcmsv2.model.*;
 import com.zhsl.pcmsv2.service.BaseInfoService;
+import com.zhsl.pcmsv2.service.MonthReportService;
 import com.zhsl.pcmsv2.service.RegionService;
-import com.zhsl.pcmsv2.util.BeanUtils;
-import com.zhsl.pcmsv2.util.RoleCheckUtil;
-import com.zhsl.pcmsv2.util.UUIDUtils;
+import com.zhsl.pcmsv2.util.*;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
+import com.zhsl.pcmsv2.vo.LifeCircle;
+import com.zhsl.pcmsv2.vo.ProjectMonthlyReportVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -29,7 +33,11 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -50,6 +58,9 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
     @Autowired
     private PlantStateMapper plantStateMapper;
+
+    @Autowired
+    private ProjectMonthlyReportMapper pmrMapper;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -211,7 +222,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         if (regionId == 0) {
             region = thisUser.getRegion();
         } else if (regionId > 0) {
-            if (RoleCheckUtil.checkIfPossessProvinceRole(thisUser)) {
+            if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PROVINCE.getKey())) {
                 region = regionService.findByRegionId(regionId);
 
             }
@@ -232,6 +243,95 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         List<BaseInfoVO> baseInfoVOs = baseInfos.stream().map(e -> BaseInfo2VO.convert(e)).collect(Collectors.toList());
 
         return baseInfoVOs;
+    }
+
+    @Override
+    public int updateCommenceDate(Date commenceDate) {
+
+        if (commenceDate == null) {
+            log.error("【基础信息】 更新水库开工时间时，用户传入的commenceDate不正确！");
+            throw new SysException(SysEnum.INVALID_INFO_RECEIVED_ERROR);
+        }
+
+        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (thisUser.getBaseInfoId() == null || "".equals(thisUser.getBaseInfoId())) {
+            log.error("【基础信息】 更新水库开工时间时，用户的水库信息不存在！");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+
+        BaseInfo baseInfo = baseInfoMapper.selectByPrimaryKey(thisUser.getBaseInfoId());
+        if (baseInfo == null) {
+            log.error("【基础信息】 更新水库开工时间时，用户的水库信息不存在！");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+        PlantState plantState = baseInfo.getPlantState();
+        if (plantState == null) {
+            log.error("【基础信息】 更新水库开工时间时，用户的水库的节点状态信息不存在！");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+        if (plantState.getStateId() <= 2) {
+            log.error("【基础信息】 更新水库开工时间时，用户的水库的节点状态不在建设期，不能更新开工时间！");
+            throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD.getCode(), "水库的节点状态不在建设期，" +
+                    "请更新水库状态节点，然后再试！");
+        }
+
+        int result = baseInfoMapper.updateCommenceDate(thisUser.getBaseInfoId(), commenceDate);
+
+        return result;
+    }
+
+    @Override
+    public List<LifeCircle> buildLifeCircle() {
+
+        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<LifeCircle> lifeCircles = new ArrayList<>();
+
+        // 如果登录用户是业主时
+        if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PLP.getKey())) {
+            if (thisUser.getBaseInfoId() == null) {
+                log.error("【生命周期】 在获取生命周期相关信息时，业主用户的水库信息为空");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+            BaseInfo baseInfo = baseInfoMapper.selectByPrimaryKey(thisUser.getBaseInfoId());
+            if (baseInfo == null) {
+                log.error("【生命周期】 在获取生命周期相关信息时，业主用户的水库信息为空");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+
+            // 建设周期（月）->(天)
+            BigDecimal timeLimitDay = baseInfo.getTimeLimit().multiply(new BigDecimal(30));
+            // 到目前为止的实际用时（月）
+
+            // 计算当前日期和开工日期之间的天数差值
+            int differDays = CalendarUtil.calDifferDays(baseInfo.getCommenceDate());
+            BigDecimal actualLimit = new BigDecimal(differDays).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+
+            // 工程总投资
+            BigDecimal totalInvestment = baseInfo.getTotalInvestment();
+            // 到目前为止的投资完成 、到目前为止的资金到位
+            BigDecimal investmentSofar = null;
+            BigDecimal availableInvestmentSofar = null;
+
+            List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdWithImg(baseInfo.getBaseInfoId());
+
+            if (projectMonthlyReports == null || projectMonthlyReports.size() == 0){
+                investmentSofar = new BigDecimal(0.00);
+                availableInvestmentSofar = new BigDecimal(0.00);
+            } else {
+                investmentSofar = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
+                availableInvestmentSofar = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReports);
+            }
+
+            LifeCircle lifeCircle = new LifeCircle(timeLimitDay, actualLimit, totalInvestment,
+                    investmentSofar, availableInvestmentSofar);
+
+            lifeCircles.add(lifeCircle);
+        }
+
+        return lifeCircles;
     }
 
     @Override

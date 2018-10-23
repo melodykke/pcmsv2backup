@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Slf4j
 @Service
@@ -45,6 +46,16 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public Region findByRegionId(int regionId) {
         return regionMapper.selectByPrimaryKey(regionId);
+    }
+
+    /**
+     * 只有最高级用户才能调用，返回排除省的所有区域
+     * @return
+     */
+    @Override
+    public List<Region> findAll() {
+        List<Region> regions = regionMapper.selectAll();
+        return regions;
     }
 
     /**

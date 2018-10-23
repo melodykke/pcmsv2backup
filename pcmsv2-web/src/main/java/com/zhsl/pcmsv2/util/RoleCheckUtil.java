@@ -16,17 +16,18 @@ public class RoleCheckUtil {
 
     private static Logger log = LoggerFactory.getLogger("RoleCheckUtil.class");
 
-    public static Boolean checkIfPossessProvinceRole(UserInfo thisUser) {
+    // 检查用户是否具备某角色
+    public static Boolean checkIfPossessARole(UserInfo thisUser, String role) {
 
         List<SysRole> sysRoles = thisUser.getRoles();
         if (sysRoles == null || sysRoles.size() == 0) {
-            log.error("【月报】 按区域查询月报时，用户角色为空");
+            log.error("【角色判断】 角色判断时，用户角色为空");
             throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
         }
 
         List<String> roles = sysRoles.stream().map(e -> e.getRole()).collect(Collectors.toList());
 
-        if (roles.contains("ROLE_PROVINCE")) {
+        if (roles.contains(role)) {
            return true;
         }
 

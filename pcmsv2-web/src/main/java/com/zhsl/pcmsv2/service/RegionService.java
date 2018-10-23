@@ -20,4 +20,10 @@ public interface RegionService {
      */
     Region findByRegionId(int regionId);
 
+    /**
+     * 只有最高级用户才能调用，返回排除省的所有区域
+     * @return
+     */
+    List<Region> findAll();
+
 }

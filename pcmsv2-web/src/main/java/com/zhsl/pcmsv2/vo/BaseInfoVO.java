@@ -129,4 +129,5 @@ public class BaseInfoVO {
 
     private PlantStateVO plantStateVO;
 
+    private Date commenceDate;
 }

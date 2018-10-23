@@ -65,6 +65,7 @@ public class ProjectMonthlyReportDTO {
 
     private BigDecimal sourceProvincialInvestment;
 
+    @Null
     @Past(message = "必须是一个过去的时间")
     private Date submitDate;
 

@@ -5,8 +5,10 @@ import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Feedback;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
+import com.zhsl.pcmsv2.vo.LifeCircle;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 public interface BaseInfoService {
@@ -46,6 +48,16 @@ public interface BaseInfoService {
      * @return
      */
     List<BaseInfoVO> findByRegionId(HttpServletRequest request);
+
+    /**
+     * 参考水库的状态，设置水库动工的开始时间
+     * 业主更新自己
+     * @param commenceDate
+     * @return
+     */
+    int updateCommenceDate(Date commenceDate);
+
+    List<LifeCircle> buildLifeCircle();
 
     /**
      * 将数据库中的所有baseInfo信息缓存至redis中 key：allBaseInfo

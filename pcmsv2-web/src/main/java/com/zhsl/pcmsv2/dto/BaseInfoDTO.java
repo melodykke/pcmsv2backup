@@ -4,7 +4,10 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 public class BaseInfoDTO {
@@ -102,8 +105,10 @@ public class BaseInfoDTO {
 
     private String supervisorBid;
 
+    @NotNull(message = "建设周期（月份）不能为空")
     private BigDecimal timeLimit;
 
+    @NotNull(message = "工程总投资不能为空")
     private BigDecimal totalInvestment;
 
     private Integer unitProjectAmount;
@@ -121,4 +126,7 @@ public class BaseInfoDTO {
 
     @NotBlank(message = "工程项目直管单位不能为空")
     private String affiliatedTo;
+
+    // 如果为true 表明水库工程进入建设期
+    private Date commenceDate;
 }

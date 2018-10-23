@@ -4,6 +4,7 @@ import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Region;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BaseInfoMapper {
@@ -65,4 +66,11 @@ public interface BaseInfoMapper {
      * @return
      */
     List<BaseInfo> findByRegionsIn(List<Region> regions);
+
+    /**
+     * 更新工程步入建设期的开始时间
+     * @param commenceDate
+     * @return
+     */
+    int updateCommenceDate(@Param("baseInfoId") String baseInfoId, @Param("commenceDate") Date commenceDate);
 }
