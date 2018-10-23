@@ -10,10 +10,8 @@ import com.zhsl.pcmsv2.dto.BaseInfoDTO;
 import com.zhsl.pcmsv2.enums.RedisKeys;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.BaseInfoMapper;
-import com.zhsl.pcmsv2.model.BaseInfo;
-import com.zhsl.pcmsv2.model.Feedback;
-import com.zhsl.pcmsv2.model.Region;
-import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.mapper.PlantStateMapper;
+import com.zhsl.pcmsv2.model.*;
 import com.zhsl.pcmsv2.service.BaseInfoService;
 import com.zhsl.pcmsv2.service.RegionService;
 import com.zhsl.pcmsv2.util.BeanUtils;
@@ -49,6 +47,9 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
     @Autowired
     private RegionService regionService;
+
+    @Autowired
+    private PlantStateMapper plantStateMapper;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -158,10 +159,10 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
         if (baseInfo.getOwner() == null || "".equals(baseInfo.getOwner())) {
             baseInfo.setOwner(thisUser.getUsername());
-            ;
         }
 
         baseInfo.setBaseInfoId(UUIDUtils.getUUID());
+        baseInfo.setPlantState(new PlantState(1));
         baseInfo.setCreateTime(new Date());
         baseInfo.setUpdateTime(new Date());
 

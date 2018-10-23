@@ -11,6 +11,14 @@ public class Region {
     private Integer parentId;
 
 
+    public Region() {
+    }
+
+    public Region(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+
     public Integer getRegionId() {
         return regionId;
     }

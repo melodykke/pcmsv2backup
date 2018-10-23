@@ -21,7 +21,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.100.239:3306/pcmsmb"
+                        connectionURL="jdbc:mysql://192.168.100.239:3306/pcmsmbv2"
                         userId="root"
                         password="Y223183q!">
         </jdbcConnection>

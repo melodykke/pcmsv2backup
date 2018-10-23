@@ -19,8 +19,6 @@ public class RegionServiceImpl implements RegionService {
     @Autowired
     private RegionMapper regionMapper;
 
-    List<Region> children = new ArrayList<>();
-
     /**
      * 递归查找所有叶子节点（区县）
      * @param regionId
@@ -29,13 +27,15 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public List<Region> findChildrenRecursive(int regionId) {
 
+        List<Region> leafRegions = new ArrayList<>();
+
         Region region = regionMapper.selectByPrimaryKey(regionId);
 
         List<Region> rootRegionList = new ArrayList<>();
 
         rootRegionList.add(region);
 
-        recurse(rootRegionList);
+        List<Region> children = recurse(rootRegionList, leafRegions);
 
         System.out.println(children);
 
@@ -48,16 +48,23 @@ public class RegionServiceImpl implements RegionService {
     }
 
 
-    public void recurse(List<Region> regions) {
+    public List<Region> recurse(List<Region> rootRegions, List<Region> leafRegions) {
 
-        for (Region region : regions) {
+        for (Region region : rootRegions) {
             List<Region> childRegions = regionMapper.findChildrenByParentId(region.getRegionId());
+
+            if (childRegions != null || childRegions.size() > 0) {
+                recurse(childRegions, leafRegions);
+            }
+
             if (childRegions == null || childRegions.size() == 0) {
-                children.add(region);
+                leafRegions.add(region);
                 continue;
             }
-            recurse(childRegions);
+
         }
+
+        return leafRegions;
     }
 
 }

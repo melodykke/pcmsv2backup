@@ -105,15 +105,32 @@ public class UserServiceImpl implements UserService {
         }
 
         List<String> allUsername = userInfoMapper.findAllUsername();
+        Set<Integer> allRegionIds = userInfoMapper.findAllRegionId();
+        allRegionIds.removeIf(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                if (integer==0) return true;
+                return false;
+            }
+        });
 
         if (allUsername.contains(userInfoDTO.getUsername())) {
             log.error("【用户】 创建用户时，已存在拟申请用户名");
             throw new SysException(SysEnum.DUPLICATED_RECORD);
         }
+        if (allRegionIds.contains(userInfoDTO.getRegionId())) {
+            log.error("【用户】 创建用户时，已存在拟申请用户所管辖区域的信息");
+            throw new SysException(SysEnum.DUPLICATED_RECORD);
+        }
 
         int regionId = userInfoDTO.getRegionId();
+        Region region = null;
 
-        Region region = regionMapper.selectByPrimaryKey(regionId);
+        if (regionId == 0) {
+            region = new Region(0);
+        } else {
+            region = regionMapper.selectByPrimaryKey(regionId);
+        }
 
         if (region == null) {
             log.error("【用户】 创建用户时，拟创建用户的地区错误");

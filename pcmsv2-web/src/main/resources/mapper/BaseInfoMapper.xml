@@ -59,9 +59,10 @@
         <result column="utilizabl_capacity" jdbcType="DECIMAL" property="utilizablCapacity" />
         <result column="water_supply_population" jdbcType="DECIMAL" property="waterSupplyPopulation" />
         <result column="watersupply" jdbcType="DECIMAL" property="watersupply" />
-        <result column="state" jdbcType="TINYINT" property="state" />
         <result column="region_id" jdbcType="INTEGER" property="regionId" />
         <result column="affiliated_to" jdbcType="VARCHAR" property="affiliatedTo" />
+        <association property="plantState" columnPrefix="state_"
+                     resultMap="com.zhsl.pcmsv2.mapper.PlantStateMapper.BaseResultMap"/>
     </resultMap>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -90,7 +91,7 @@
             `storage`, supervisor_bid, time_limit,
             total_investment, unit_project_amount, unit_project_overview,
             update_time, utilizabl_capacity, water_supply_population,
-            watersupply, `state`,
+            watersupply, state_id,
             region_id, affiliated_to)
         values (#{baseInfoId,jdbcType=VARCHAR}, #{areaCoverage,jdbcType=DECIMAL}, #{branchProjectAmount,jdbcType=INTEGER},
             #{branchProjectOverview,jdbcType=VARCHAR}, #{catchmentArea,jdbcType=DECIMAL}, #{cellProjectAmount,jdbcType=INTEGER},
@@ -112,7 +113,7 @@
             #{storage,jdbcType=DECIMAL}, #{supervisorBid,jdbcType=VARCHAR}, #{timeLimit,jdbcType=DECIMAL},
             #{totalInvestment,jdbcType=DECIMAL}, #{unitProjectAmount,jdbcType=INTEGER}, #{unitProjectOverview,jdbcType=VARCHAR},
             #{updateTime,jdbcType=TIMESTAMP}, #{utilizablCapacity,jdbcType=DECIMAL}, #{waterSupplyPopulation,jdbcType=DECIMAL},
-            #{watersupply,jdbcType=DECIMAL}, #{state,jdbcType=TINYINT},
+            #{watersupply,jdbcType=DECIMAL}, #{plantState.stateId,jdbcType=INTEGER},
             #{regionId,jdbcType=INTEGER}, #{affiliatedTo, jdbcType=VARCHAR})
     </insert>
 
@@ -173,59 +174,62 @@
             utilizabl_capacity = #{utilizablCapacity,jdbcType=DECIMAL},
             water_supply_population = #{waterSupplyPopulation,jdbcType=DECIMAL},
             watersupply = #{watersupply,jdbcType=DECIMAL},
-            `state` = #{state,jdbcType=TINYINT},
+            state_id = #{plantState.stateId,jdbcType=INTEGER},
             region_id = #{regionId,jdbcType=INTEGER},
             affiliated_to = #{affiliatedTo, jdbcType=VARCHAR}
         where base_info_id = #{baseInfoId,jdbcType=VARCHAR}
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select base_info_id, area_coverage, branch_project_amount, branch_project_overview,
-            catchment_area, cell_project_amount, cell_project_overview, central_accumulative_payment,
-            central_investment, construction_land, county, create_time, dam_type, flood_control_elevation,
-            has_accept_completion, has_project_completed, has_signed_construction_contract, installed_capacity,
-            irrigated_area, land_reclamation_plan, latitude, legal_person_id, legal_person_name,
-            legal_representative_id, legal_representative_name, `level`, livestock, local_accumulative_payment,
-            local_investment, `location`, longitude, max_dam_height, overview, `owner`, parent_id,
-            plant_name, project_source, project_task, project_type, provincial_accumulative_payment,
-            provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway,
-            `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview,
-            update_time, utilizabl_capacity, water_supply_population, watersupply, `state`,
-            region_id, affiliated_to
-        from base_info
+        select b.base_info_id, b.area_coverage, b.branch_project_amount, b.branch_project_overview,
+            b.catchment_area, b.cell_project_amount, b.cell_project_overview, b.central_accumulative_payment,
+            b.central_investment, b.construction_land, b.county, b.create_time, b.dam_type, b.flood_control_elevation,
+            b.has_accept_completion, b.has_project_completed, b.has_signed_construction_contract, b.installed_capacity,
+            b.irrigated_area, b.land_reclamation_plan, b.latitude, b.legal_person_id, b.legal_person_name,
+            b.legal_representative_id, b.legal_representative_name, b.`level`, b.livestock, b.local_accumulative_payment,
+            b.local_investment, b.`location`, b.longitude, b.max_dam_height, b.overview, b.`owner`, b.parent_id,
+            b.plant_name, b.project_source, b.project_task, b.project_type, b.provincial_accumulative_payment,
+            b.provincial_investment, b.provincial_loan, b.remark, b.rural_human_water, b.`scale`, b.spillway,
+            b.`storage`, b.supervisor_bid, b.time_limit, b.total_investment, b.unit_project_amount, b.unit_project_overview,
+            b.update_time, b.utilizabl_capacity, b.water_supply_population, b.watersupply, b.region_id, b.affiliated_to,
+            p.state_id state_state_id, p.description state_description, p.`type` state_type
+        from base_info b
+        LEFT JOIN plant_state p on b.state_id = p.state_id
         where base_info_id = #{baseInfoId,jdbcType=VARCHAR}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select base_info_id, area_coverage, branch_project_amount, branch_project_overview,
-            catchment_area, cell_project_amount, cell_project_overview, central_accumulative_payment,
-            central_investment, construction_land, county, create_time, dam_type, flood_control_elevation,
-            has_accept_completion, has_project_completed, has_signed_construction_contract, installed_capacity,
-            irrigated_area, land_reclamation_plan, latitude, legal_person_id, legal_person_name,
-            legal_representative_id, legal_representative_name, `level`, livestock, local_accumulative_payment,
-            local_investment, `location`, longitude, max_dam_height, overview, `owner`, parent_id,
-            plant_name, project_source, project_task, project_type, provincial_accumulative_payment,
-            provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway,
-            `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview,
-            update_time, utilizabl_capacity, water_supply_population, watersupply, `state`,
-            region_id, affiliated_to
-        from base_info
+        select b.base_info_id, b.area_coverage, b.branch_project_amount, b.branch_project_overview,
+            b.catchment_area, b.cell_project_amount, b.cell_project_overview, b.central_accumulative_payment,
+            b.central_investment, b.construction_land, b.county, b.create_time, b.dam_type, b.flood_control_elevation,
+            b.has_accept_completion, b.has_project_completed, b.has_signed_construction_contract, b.installed_capacity,
+            b.irrigated_area, b.land_reclamation_plan, b.latitude, b.legal_person_id, b.legal_person_name,
+            b.legal_representative_id, b.legal_representative_name, b.`level`, b.livestock, b.local_accumulative_payment,
+            b.local_investment, b.`location`, b.longitude, b.max_dam_height, b.overview, b.`owner`, b.parent_id,
+            b.plant_name, b.project_source, b.project_task, b.project_type, b.provincial_accumulative_payment,
+            b.provincial_investment, b.provincial_loan, b.remark, b.rural_human_water, b.`scale`, b.spillway,
+            b.`storage`, b.supervisor_bid, b.time_limit, b.total_investment, b.unit_project_amount, b.unit_project_overview,
+            b.update_time, b.utilizabl_capacity, b.water_supply_population, b.watersupply, b.region_id, b.affiliated_to,
+            p.state_id state_state_id, p.description state_description, p.`type` state_type
+        from base_info b
+        LEFT JOIN plant_state p on b.state_id = p.state_id
     </select>
 
     <select id="findByRegion" resultMap="BaseResultMap">
-         select base_info_id, area_coverage, branch_project_amount, branch_project_overview,
-            catchment_area, cell_project_amount, cell_project_overview, central_accumulative_payment,
-            central_investment, construction_land, county, create_time, dam_type, flood_control_elevation,
-            has_accept_completion, has_project_completed, has_signed_construction_contract, installed_capacity,
-            irrigated_area, land_reclamation_plan, latitude, legal_person_id, legal_person_name,
-            legal_representative_id, legal_representative_name, `level`, livestock, local_accumulative_payment,
-            local_investment, `location`, longitude, max_dam_height, overview, `owner`, parent_id,
-            plant_name, project_source, project_task, project_type, provincial_accumulative_payment,
-            provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway,
-            `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview,
-            update_time, utilizabl_capacity, water_supply_population, watersupply, `state`,
-            region_id, affiliated_to
-        from base_info
+         select b.base_info_id, b.area_coverage, b.branch_project_amount, b.branch_project_overview,
+            b.catchment_area, b.cell_project_amount, b.cell_project_overview, b.central_accumulative_payment,
+            b.central_investment, b.construction_land, b.county, b.create_time, b.dam_type, b.flood_control_elevation,
+            b.has_accept_completion, b.has_project_completed, b.has_signed_construction_contract, b.installed_capacity,
+            b.irrigated_area, b.land_reclamation_plan, b.latitude, b.legal_person_id, b.legal_person_name,
+            b.legal_representative_id, b.legal_representative_name, b.`level`, b.livestock, b.local_accumulative_payment,
+            b.local_investment, b.`location`, b.longitude, b.max_dam_height, b.overview, b.`owner`, b.parent_id,
+            b.plant_name, b.project_source, b.project_task, b.project_type, b.provincial_accumulative_payment,
+            b.provincial_investment, b.provincial_loan, b.remark, b.rural_human_water, b.`scale`, b.spillway,
+            b.`storage`, b.supervisor_bid, b.time_limit, b.total_investment, b.unit_project_amount, b.unit_project_overview,
+            b.update_time, b.utilizabl_capacity, b.water_supply_population, b.watersupply, b.region_id, b.affiliated_to,
+            p.state_id state_state_id, p.description state_description, p.`type` state_type
+        from base_info b
+        LEFT JOIN plant_state p on b.state_id = p.state_id
         WHERE region_id = #{regionId}
     </select>
 
@@ -254,7 +258,7 @@
             `storage`, supervisor_bid, time_limit,
             total_investment, unit_project_amount, unit_project_overview,
             update_time, utilizabl_capacity, water_supply_population,
-            watersupply, `state`,
+            watersupply, state_id,
             region_id, affiliated_to)
         values
             <foreach collection="baseInfos" separator="," index="index" item="baseInfo">
@@ -278,25 +282,26 @@
                 #{baseInfo.storage,jdbcType=DECIMAL}, #{baseInfo.supervisorBid,jdbcType=VARCHAR}, #{baseInfo.timeLimit,jdbcType=DECIMAL},
                 #{baseInfo.totalInvestment,jdbcType=DECIMAL}, #{baseInfo.unitProjectAmount,jdbcType=INTEGER}, #{baseInfo.unitProjectOverview,jdbcType=VARCHAR},
                 #{baseInfo.updateTime,jdbcType=TIMESTAMP}, #{baseInfo.utilizablCapacity,jdbcType=DECIMAL}, #{baseInfo.waterSupplyPopulation,jdbcType=DECIMAL},
-                #{baseInfo.watersupply,jdbcType=DECIMAL}, #{baseInfo.state,jdbcType=TINYINT},
+                #{baseInfo.watersupply,jdbcType=DECIMAL}, #{baseInfo.plantState.stateId,jdbcType=INTEGER},
                 #{baseInfo.regionId,jdbcType=INTEGER}, #{baseInfo.affiliatedTo, jdbcType=VARCHAR})
             </foreach>
     </insert>
     
     <select id="findByRegionsIn" resultMap="BaseResultMap">
-          select base_info_id, area_coverage, branch_project_amount, branch_project_overview,
-            catchment_area, cell_project_amount, cell_project_overview, central_accumulative_payment,
-            central_investment, construction_land, county, create_time, dam_type, flood_control_elevation,
-            has_accept_completion, has_project_completed, has_signed_construction_contract, installed_capacity,
-            irrigated_area, land_reclamation_plan, latitude, legal_person_id, legal_person_name,
-            legal_representative_id, legal_representative_name, `level`, livestock, local_accumulative_payment,
-            local_investment, `location`, longitude, max_dam_height, overview, `owner`, parent_id,
-            plant_name, project_source, project_task, project_type, provincial_accumulative_payment,
-            provincial_investment, provincial_loan, remark, rural_human_water, `scale`, spillway,
-            `storage`, supervisor_bid, time_limit, total_investment, unit_project_amount, unit_project_overview,
-            update_time, utilizabl_capacity, water_supply_population, watersupply, `state`,
-            region_id, affiliated_to
-        from base_info
+        SELECT b.base_info_id, b.area_coverage, b.branch_project_amount, b.branch_project_overview,
+            b.catchment_area, b.cell_project_amount, b.cell_project_overview, b.central_accumulative_payment,
+            b.central_investment, b.construction_land, b.county, b.create_time, b.dam_type, b.flood_control_elevation,
+            b.has_accept_completion, b.has_project_completed, b.has_signed_construction_contract, b.installed_capacity,
+            b.irrigated_area, b.land_reclamation_plan, b.latitude, b.legal_person_id, b.legal_person_name,
+            b.legal_representative_id, b.legal_representative_name, b.`level`, b.livestock, b.local_accumulative_payment,
+            b.local_investment, b.`location`, b.longitude, b.max_dam_height, b.overview, b.`owner`, b.parent_id,
+            b.plant_name, b.project_source, b.project_task, b.project_type, b.provincial_accumulative_payment,
+            b.provincial_investment, b.provincial_loan, b.remark, b.rural_human_water, b.`scale`, b.spillway,
+            b.`storage`, b.supervisor_bid, b.time_limit, b.total_investment, b.unit_project_amount, b.unit_project_overview,
+            b.update_time, b.utilizabl_capacity, b.water_supply_population, b.watersupply, b.region_id, b.affiliated_to,
+            p.state_id state_state_id, p.description state_description, p.`type` state_type
+        FROM base_info b
+        LEFT JOIN plant_state p on b.state_id = p.state_id
         <where>
             region_id IN 
             <choose>

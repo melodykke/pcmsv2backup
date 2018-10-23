@@ -4,6 +4,7 @@ import com.zhsl.pcmsv2.model.UserInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserInfoMapper {
 
@@ -97,6 +98,11 @@ public interface UserInfoMapper {
      * @return
      */
     List<String> findAllUsername();
+
+    /**
+     * 列出所有用户所用到区域 主要是防止注册区域重复用
+     */
+    Set<Integer> findAllRegionId();
 
     int changeBaseInfoIdToUUID(@Param("baseInfoId") String baseInfoId, @Param("userId") String userId);
 

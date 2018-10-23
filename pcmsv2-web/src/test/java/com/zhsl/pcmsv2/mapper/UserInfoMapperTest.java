@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 public class UserInfoMapperTest {
 
 
-
     @Autowired
     private UserInfoMapper userInfoMapper;
 

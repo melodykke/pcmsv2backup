@@ -116,7 +116,7 @@ public class BaseInfo {
 
     private BigDecimal watersupply;
 
-    private Byte state; // 标记生命周期中的建设节点
+    private PlantState plantState; // 标记生命周期中的建设节点
 
     private Integer regionId;
 
@@ -571,12 +571,12 @@ public class BaseInfo {
         this.watersupply = watersupply;
     }
 
-    public Byte getState() {
-        return state;
+    public PlantState getPlantState() {
+        return plantState;
     }
 
-    public void setState(Byte state) {
-        this.state = state;
+    public void setPlantState(PlantState plantState) {
+        this.plantState = plantState;
     }
 
     public Integer getRegionId() {

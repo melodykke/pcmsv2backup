@@ -1,5 +1,6 @@
 package com.zhsl.pcmsv2.vo;
 
+import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.SysRole;
 import lombok.Data;
 
@@ -29,4 +30,6 @@ public class UserInfoVO {
     private List<SysRole> roles;
 
     private boolean accountNonLocked;
+
+    private RegionVO regionVO;
 }

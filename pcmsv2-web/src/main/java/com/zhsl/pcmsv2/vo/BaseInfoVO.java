@@ -1,5 +1,6 @@
 package com.zhsl.pcmsv2.vo;
 
+import com.zhsl.pcmsv2.model.PlantState;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -125,5 +126,7 @@ public class BaseInfoVO {
     private Integer regionId;
 
     private String affiliatedTo;
+
+    private PlantStateVO plantStateVO;
 
 }

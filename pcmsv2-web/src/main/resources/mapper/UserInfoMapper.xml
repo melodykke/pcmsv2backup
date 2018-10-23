@@ -211,6 +211,10 @@
     <select id="findAllUsername" resultType="String">
         SELECT username FROM user_info
     </select>
+    
+    <select id="findAllRegionId" resultType="Integer">
+        SELECT region_id FROM user_info
+    </select>
 
     <update id="changeBaseInfoIdToUUID">
         UPDATE user_info

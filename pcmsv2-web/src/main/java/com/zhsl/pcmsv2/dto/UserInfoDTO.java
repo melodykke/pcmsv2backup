@@ -33,4 +33,7 @@ public class UserInfoDTO {
 
     @NotNull(message = "用户所在地区不能为空！")
     private Integer regionId;
+
+    @NotNull(message = "用户所属上级不能为空！")
+    private String parentId;
 }
