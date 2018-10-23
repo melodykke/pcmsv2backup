@@ -403,6 +403,9 @@ public class MonthReportServiceImpl implements MonthReportService {
         } else if (regionId > 0){
             if (RoleCheckUtil.checkIfPossessProvinceRole(thisUser)) {
                 region = regionService.findByRegionId(regionId);
+            } else {
+                log.error("【月报】 没有权限作此操作");
+                throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
             }
         }
 

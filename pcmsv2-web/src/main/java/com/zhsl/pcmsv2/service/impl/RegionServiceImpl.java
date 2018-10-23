@@ -47,7 +47,12 @@ public class RegionServiceImpl implements RegionService {
         return regionMapper.selectByPrimaryKey(regionId);
     }
 
-
+    /**
+     * 根据root节点查找其所有叶子节点（不包含既是root也时leaf的中间节点）
+     * @param rootRegions
+     * @param leafRegions
+     * @return
+     */
     public List<Region> recurse(List<Region> rootRegions, List<Region> leafRegions) {
 
         for (Region region : rootRegions) {

@@ -103,6 +103,11 @@ public class BaseInfoController {
         return ResultUtil.success(baseInfoVO);
     }
 
+    /**
+     * 获取自己的水库信息
+     * 只有地方业主 PLP 才能访问
+     * @return
+     */
     @GetMapping("/mybaseinfo")
     public ResultVO getMybaseinfo() {
 
