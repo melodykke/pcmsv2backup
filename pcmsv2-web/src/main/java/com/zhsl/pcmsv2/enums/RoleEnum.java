@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum RoleEnum {
     PROVINCE("ROLE_PROVINCE"),
+    DEPARTMENT("ROLE_DEPARTMENT"),
     PLP("ROLE_PLP"),
     ;
 

@@ -1,7 +1,10 @@
 package com.zhsl.pcmsv2.service;
 
 import com.zhsl.pcmsv2.dto.UserInfoDTO;
+import com.zhsl.pcmsv2.dto.UsersRoles;
+import com.zhsl.pcmsv2.model.SysRole;
 import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.vo.SysRoleVO;
 import com.zhsl.pcmsv2.vo.UserInfoVO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -56,6 +59,15 @@ public interface UserService extends UserDetailsService {
      * @return
      */
     List<UserInfoVO> findAll();
+
+    /**
+     * 获取系统所有角色 （排除工程管理部和建管处角色）
+     * 只有最高级用户才能访问此方法
+     * @return
+     */
+    List<SysRoleVO> findAllRoles();
+
+    int batchInsertUsersRoles(UsersRoles usersRoles);
 
     /**
      * 将数据库中userinfo信息同步至redis

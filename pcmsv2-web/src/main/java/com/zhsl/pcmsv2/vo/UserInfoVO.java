@@ -1,5 +1,6 @@
 package com.zhsl.pcmsv2.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.SysRole;
 import lombok.Data;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoVO {
     private String userId;
 
@@ -27,7 +29,7 @@ public class UserInfoVO {
 
     private String openId;
 
-    private List<SysRole> roles;
+    private List<SysRoleVO> roleVOs;
 
     private boolean accountNonLocked;
 

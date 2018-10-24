@@ -4,8 +4,10 @@ import com.zhsl.pcmsv2.browser.enums.SysEnum;
 import com.zhsl.pcmsv2.browser.support.ResultVO;
 import com.zhsl.pcmsv2.browser.util.ResultUtil;
 import com.zhsl.pcmsv2.dto.UserInfoDTO;
+import com.zhsl.pcmsv2.dto.UsersRoles;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.service.UserService;
+import com.zhsl.pcmsv2.vo.SysRoleVO;
 import com.zhsl.pcmsv2.vo.UserInfoVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -111,4 +113,25 @@ public class UserController {
 
         return ResultUtil.success(userInfoVOs);
     }
+
+    @PostMapping("/management/batchsetroles")
+    public ResultVO batchSetRoles(@RequestBody UsersRoles usersRoles) {
+
+        int result = userService.batchInsertUsersRoles(usersRoles);
+
+        return ResultUtil.success(result);
+    }
+
+    @GetMapping("/management/allroles")
+    public ResultVO getAllRoles() {
+
+        List<SysRoleVO> sysRoleVOs = userService.findAllRoles();
+
+        if (sysRoleVOs.size() > 0) {
+            return ResultUtil.success(sysRoleVOs);
+        } else {
+            return ResultUtil.failed();
+        }
+    }
+
 }

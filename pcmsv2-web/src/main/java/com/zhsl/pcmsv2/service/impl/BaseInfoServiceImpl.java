@@ -281,57 +281,111 @@ public class BaseInfoServiceImpl implements BaseInfoService {
         return result;
     }
 
+    /**
+     * 创建水库的生命周期
+     * @param baseInfoId 管理员才能传参
+     * @return
+     */
     @Override
-    public List<LifeCircle> buildLifeCircle() {
+    public LifeCircle getLifeCircle(String baseInfoId) {
 
         UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<LifeCircle> lifeCircles = new ArrayList<>();
+        BaseInfo baseInfo = null;
 
         // 如果登录用户是业主时
-        if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PLP.getKey())) {
+        if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PLP.getKey()) &&
+                (baseInfoId == null || "".equals(baseInfoId))) {
+
             if (thisUser.getBaseInfoId() == null) {
                 log.error("【生命周期】 在获取生命周期相关信息时，业主用户的水库信息为空");
                 throw new SysException(SysEnum.NOT_EXIST_RECORD);
             }
-            BaseInfo baseInfo = baseInfoMapper.selectByPrimaryKey(thisUser.getBaseInfoId());
+            baseInfo = baseInfoMapper.selectByPrimaryKey(thisUser.getBaseInfoId());
             if (baseInfo == null) {
                 log.error("【生命周期】 在获取生命周期相关信息时，业主用户的水库信息为空");
                 throw new SysException(SysEnum.NOT_EXIST_RECORD);
             }
 
-            // 建设周期（月）->(天)
-            BigDecimal timeLimitDay = baseInfo.getTimeLimit().multiply(new BigDecimal(30));
-            // 到目前为止的实际用时（月）
+            // 如果是管理员
+        } else if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PROVINCE.getKey()) &&
+                (baseInfoId != null || !"".equals(baseInfoId))){
+            // 查询自己辖区某水库基础信息
+            Region region = thisUser.getRegion();
+            if (region == null) {
+                log.error("【生命周期】 在获取辖区内某水库生命周期时，用户所在区域信息为空！");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+            int regionId = region.getRegionId();
+            if (regionId == 0) {
+                log.error("【生命周期】 在获取辖区内某水库生命周期时，用户所在区域Id为空！");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+            // 获取所有叶子辖区
+            List<Region> leafRegions = regionService.findChildrenRecursive(regionId);
+            // 获取所有水库基础信息
+            List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
 
-            // 计算当前日期和开工日期之间的天数差值
-            int differDays = CalendarUtil.calDifferDays(baseInfo.getCommenceDate());
-            BigDecimal actualLimit = new BigDecimal(differDays).setScale(2, BigDecimal.ROUND_HALF_UP);
+            List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
 
-
-            // 工程总投资
-            BigDecimal totalInvestment = baseInfo.getTotalInvestment();
-            // 到目前为止的投资完成 、到目前为止的资金到位
-            BigDecimal investmentSofar = null;
-            BigDecimal availableInvestmentSofar = null;
-
-            List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdWithImg(baseInfo.getBaseInfoId());
-
-            if (projectMonthlyReports == null || projectMonthlyReports.size() == 0){
-                investmentSofar = new BigDecimal(0.00);
-                availableInvestmentSofar = new BigDecimal(0.00);
-            } else {
-                investmentSofar = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
-                availableInvestmentSofar = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReports);
+            if (!baseInfoIds.contains(baseInfoId)) {
+                log.error("【生命周期】 在获取辖区内某水库生命周期时，用户查询的水库（生命周期）不在管辖范围内！");
+                throw new SysException(SysEnum.ILLEGAL_OPERATION);
             }
 
-            LifeCircle lifeCircle = new LifeCircle(timeLimitDay, actualLimit, totalInvestment,
-                    investmentSofar, availableInvestmentSofar);
-
-            lifeCircles.add(lifeCircle);
+            baseInfo = baseInfoMapper.selectByPrimaryKey(baseInfoId);
         }
 
-        return lifeCircles;
+        return buildLifeCircle(baseInfo);
+    }
+    // 构建生命周期
+    protected LifeCircle buildLifeCircle(BaseInfo baseInfo) {
+
+        if (baseInfo == null) {
+            log.error("【生命周期】 在获取生命周期相关信息时，要查询的水库基础信息为空");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+
+        LifeCircle lifeCircle = null;
+
+        // 建设周期（月）->(天)
+        BigDecimal timeLimit = baseInfo.getTimeLimit();
+        if (timeLimit.equals(new BigDecimal(0.00)) || timeLimit == null) {
+            log.error("【生命周期】 在获取生命周期相关信息时，业主用户的工程建设周期一项为空");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+        BigDecimal timeLimitDay = timeLimit.multiply(new BigDecimal(30));
+
+        // 计算当前日期和开工日期之间的天数差值
+        Date commenceDate = baseInfo.getCommenceDate();
+        if (commenceDate == null) {
+            log.error("【生命周期】 在获取生命周期相关信息时，业主用户的工程开工时间一项为空");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
+        int differDays = CalendarUtil.calDifferDays(commenceDate);
+        BigDecimal actualLimit = new BigDecimal(differDays).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+
+        // 工程总投资
+        BigDecimal totalInvestment = baseInfo.getTotalInvestment();
+        // 到目前为止的投资完成 、到目前为止的资金到位
+        BigDecimal investmentSofar = null;
+        BigDecimal availableInvestmentSofar = null;
+
+        List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdWithImg(baseInfo.getBaseInfoId());
+
+        if (projectMonthlyReports == null || projectMonthlyReports.size() == 0){
+            investmentSofar = new BigDecimal(0.00);
+            availableInvestmentSofar = new BigDecimal(0.00);
+        } else {
+            investmentSofar = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
+            availableInvestmentSofar = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReports);
+        }
+
+        lifeCircle = new LifeCircle(timeLimitDay, actualLimit, totalInvestment,
+                investmentSofar, availableInvestmentSofar);
+
+        return lifeCircle;
     }
 
     @Override

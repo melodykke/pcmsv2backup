@@ -62,13 +62,24 @@
         where user_id = #{userId,jdbcType=VARCHAR}
     </select>
 
-    <select id="selectAll" resultMap="BaseResultMap">
-        select u.user_id, u.account_non_locked, u.create_time, u.`name`, u.`password`, u.update_time, u.username,
-            u.base_info_id, u.parent_id, u.open_id,
-            r.region_id region_region_id, r.region_code region_region_code, r.region_name region_region_name,
-            r.parent_id region_parent_id
-        from user_info u
-          LEFT JOIN region r ON u.region_id = r.region_id
+    <select id="selectAll" resultMap="WithRolesResultMap">
+        select u.user_id, u.account_non_locked, u.create_time, u.name, u.password, u.update_time, u.username,
+        u.base_info_id, u.parent_id, u.open_id,
+        rg.region_id region_region_id, rg.region_code region_region_code, rg.region_name region_region_name,
+        rg.parent_id region_parent_id,
+        r.role_id role_role_id, r.available role_available, r.description role_description, r.role role_role,
+        p.permission_id role_permission_permission_id, p.available role_permission_available, p.name
+        role_permission_name,
+        p.parent_id role_permission_parent_id, p.parent_ids role_permission_parent_ids, p.permission
+        role_permission_permission,
+        p.resource_type role_permission_resource_type, p.url role_permission_url
+        from   user_info u
+        LEFT JOIN region rg on u.region_id = rg.region_id
+        LEFT JOIN sys_user_role ur on u.user_id = ur.user_id
+        LEFT JOIN sys_role r on ur.role_id = r.role_id
+        LEFT JOIN sys_role_permission rp on r.role_id = rp.role_id
+        LEFT JOIN sys_permission p on rp.permission_id = p.permission_id
+        ORDER BY u.user_id
     </select>
 
 

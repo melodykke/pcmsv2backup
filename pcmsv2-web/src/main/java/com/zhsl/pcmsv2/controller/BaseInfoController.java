@@ -160,10 +160,12 @@ public class BaseInfoController {
      * @return
      */
     @GetMapping("lifecircle")
-    public ResultVO lifeCircle() {
+    @ApiOperation(value = "按登陆用户获取水库生命周期信息 如果是管理员则返回辖区内某个水库的生命周期 (management)")
+    @ApiImplicitParam(name = "baseInfoId", value = "水库ID 此项只能最高级用户才能传参", required = false, dataType = "String")
+    public ResultVO lifeCircle(@RequestParam(name = "baseInfoId", required = false) String baseInfoId) {
 
-        List<LifeCircle> lifeCircles = baseInfoService.buildLifeCircle();
+        LifeCircle lifeCircle = baseInfoService.getLifeCircle(baseInfoId);
 
-        return ResultUtil.success(lifeCircles);
+        return ResultUtil.success(lifeCircle);
     }
 }

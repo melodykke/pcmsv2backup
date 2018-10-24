@@ -57,7 +57,12 @@ public interface BaseInfoService {
      */
     int updateCommenceDate(Date commenceDate);
 
-    List<LifeCircle> buildLifeCircle();
+    /**
+     * 获取水库的生命周期
+     * @param baseInfoId 管理员才能传参
+     * @return
+     */
+    LifeCircle getLifeCircle(String baseInfoId);
 
     /**
      * 将数据库中的所有baseInfo信息缓存至redis中 key：allBaseInfo
