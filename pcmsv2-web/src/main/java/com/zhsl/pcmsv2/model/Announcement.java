@@ -1,6 +1,7 @@
 package com.zhsl.pcmsv2.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Announcement {
     private String announcementId;
@@ -18,6 +19,8 @@ public class Announcement {
     private Date updateTime;
 
     private String content;
+
+    private List<AnnouncementFile> announcementFiles;
 
     public String getAnnouncementId() {
         return announcementId;
@@ -81,5 +84,13 @@ public class Announcement {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public List<AnnouncementFile> getAnnouncementFiles() {
+        return announcementFiles;
+    }
+
+    public void setAnnouncementFiles(List<AnnouncementFile> announcementFiles) {
+        this.announcementFiles = announcementFiles;
     }
 }

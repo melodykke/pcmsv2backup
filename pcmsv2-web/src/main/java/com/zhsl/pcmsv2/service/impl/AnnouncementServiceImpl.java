@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhsl.pcmsv2.browser.enums.SysEnum;
 import com.zhsl.pcmsv2.convertor.tovo.Announcement2VO;
+import com.zhsl.pcmsv2.dto.AnnouncementDTO;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.AnnouncementMapper;
 import com.zhsl.pcmsv2.model.Announcement;
@@ -73,6 +74,30 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         List<Announcement> announcements = announcementMapper.selectAll();
         return buildPage(pageNum, pageSize, announcements);
     }
+
+    /**
+     * 新增公告
+     * @param announcementDTO
+     * @return
+     */
+    @Override
+    public int create(AnnouncementDTO announcementDTO) {
+
+        if (announcementDTO == null) {
+            log.error("【公告】 在新建公告时，公告信息为空！");
+            throw new SysException(SysEnum.INVALID_INFO_RECEIVED_ERROR);
+        }
+
+        String rtFileTempPath = announcementDTO.getRtFileTempPath();
+
+        // 无文件上传的情况，直接存储公告
+        if (rtFileTempPath == null || "".equals(rtFileTempPath)) {
+
+        }
+
+        return 0;
+    }
+
 
     protected PageInfo<AnnouncementVO> buildPage(int pageNum, int pageSize, List<Announcement> contents) {
         if (contents == null) {

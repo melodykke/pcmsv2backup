@@ -1,6 +1,7 @@
 package com.zhsl.pcmsv2.service;
 
 import com.github.pagehelper.PageInfo;
+import com.zhsl.pcmsv2.dto.AnnouncementDTO;
 import com.zhsl.pcmsv2.model.Announcement;
 import com.zhsl.pcmsv2.vo.AnnouncementVO;
 
@@ -30,4 +31,11 @@ public interface AnnouncementService {
      * @return
      */
     PageInfo<AnnouncementVO> findByPage(int pageNum, int pageSize);
+
+    /**
+     * 新增公告
+     * @param announcementDTO
+     * @return
+     */
+    int create(AnnouncementDTO announcementDTO);
 }

@@ -9,15 +9,15 @@ public class PathUtil {
         String basePath = "";
         if (temp == true) {
             if (osName.toLowerCase().startsWith("windows")){
-                basePath = "D:/pcmsFileTemp/";
+                basePath = "D:/pcmsv2FileTemp/";
             } else {
-                basePath = "/home/pcmsFileTemp/";
+                basePath = "/home/pcmsv2FileTemp/";
             }
         } else {
             if (osName.toLowerCase().startsWith("windows")) {
-                basePath = "D:/pcmsFile/";
+                basePath = "D:/pcmsv2File/";
             } else {
-                basePath = "/home/pcmsFile/";
+                basePath = "/home/pcmsv2File/";
             }
         }
         basePath = basePath.replace("/", separator);

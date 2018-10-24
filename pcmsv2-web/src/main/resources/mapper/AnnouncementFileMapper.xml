@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhsl.pcmsv2.mapper.AnnouncementFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhsl.pcmsv2.model.AnnouncementFile">
+        <id column="announcement_file_id" jdbcType="VARCHAR" property="announcementFileId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="file_addr" jdbcType="VARCHAR" property="fileAddr" />
+        <result column="file_desc" jdbcType="VARCHAR" property="fileDesc" />
+        <result column="announcement_id" jdbcType="VARCHAR" property="announcementId" />
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from announcement_file
+        where announcement_file_id = #{announcementFileId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.zhsl.pcmsv2.model.AnnouncementFile">
+    insert into announcement_file (announcement_file_id, create_time,
+      file_addr, file_desc, announcement_id)
+    values (#{announcementFileId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{fileAddr,jdbcType=VARCHAR}, #{fileDesc,jdbcType=VARCHAR}, #{announcementId,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhsl.pcmsv2.model.AnnouncementFile">
+        update announcement_file
+        set create_time = #{createTime,jdbcType=TIMESTAMP},
+            file_addr = #{fileAddr,jdbcType=VARCHAR},
+            file_desc = #{fileDesc,jdbcType=VARCHAR},
+            announcement_id = #{announcementId,jdbcType=VARCHAR}
+        where announcement_file_id = #{announcementFileId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select announcement_file_id, create_time, file_addr, file_desc, announcement_id
+        from announcement_file
+        where announcement_file_id = #{announcementFileId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select announcement_file_id, create_time, file_addr, file_desc, announcement_id
+        from announcement_file
+    </select>
+</mapper>

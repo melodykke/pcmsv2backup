@@ -12,6 +12,11 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
         <result column="content" jdbcType="LONGVARCHAR" property="content" />
     </resultMap>
+    
+    <resultMap id="WithFileResultMap" extends="BaseResultMap" type="com.zhsl.pcmsv2.model.Announcement">
+        <collection property="announcementFiles" columnPrefix="file_"
+                    resultMap="com.zhsl.pcmsv2.mapper.AnnouncementFileMapper.BaseResultMap" />
+    </resultMap>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from announcement
