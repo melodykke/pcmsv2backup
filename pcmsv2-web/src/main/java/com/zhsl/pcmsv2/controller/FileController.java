@@ -3,8 +3,10 @@ package com.zhsl.pcmsv2.controller;
 import com.zhsl.pcmsv2.browser.support.ResultVO;
 import com.zhsl.pcmsv2.browser.util.ResultUtil;
 import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.service.FileService;
 import com.zhsl.pcmsv2.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,22 +24,24 @@ import java.util.List;
 @RestController
 public class FileController {
 
+    @Autowired
+    private FileService fileService;
+
     /**
      * 上传临时文件的接口 文件名 name： uploadfile
      * @param userInfo
      * @param request
      * @return
      */
-    @PostMapping("/add")
+    @PostMapping("/uploadtempfiles")
     @ResponseBody
-    public ResultVO saveFiles(@AuthenticationPrincipal UserInfo userInfo, HttpServletRequest request) {
+    public ResultVO uploadTempFiles(@AuthenticationPrincipal UserInfo userInfo, HttpServletRequest request) {
 
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("uploadfile");
+        String midPath = fileService.uploadTempFiles(userInfo.getUsername(), request);
 
-        if (files == null || files.size() == 0) {
-            return ResultUtil.failed();
+        if (midPath != null && !"".equals(midPath)) {
+            return ResultUtil.success(midPath);
         }
-        String midPath = FileUtil.tempSaveFile(userInfo.getUsername(), files);
-        return ResultUtil.success(midPath);
+        return ResultUtil.failed();
     }
 }

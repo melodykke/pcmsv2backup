@@ -14,12 +14,12 @@ public class FileUtil {
 
     public static String tempSaveFile(String username, List<MultipartFile> files) {
 
-        String midPath = username+ "/" + System.currentTimeMillis()+"/";
+        String tempFolderRelativePath = username+ "/" + System.currentTimeMillis()+"/";
 
         for (MultipartFile file : files) {
             String oriFileName = file.getOriginalFilename();
-            String destFileName = System.currentTimeMillis() + oriFileName;
-            File tempDest = new File(PathUtil.getFileBasePath(true) + midPath + destFileName);
+            String destFileName = System.currentTimeMillis() + "-" + oriFileName;
+            File tempDest = new File(PathUtil.getFileBasePath(true) + tempFolderRelativePath + destFileName);
             if (!tempDest.getParentFile().exists()) {
                 tempDest.getParentFile().mkdirs();
             }
@@ -31,7 +31,7 @@ public class FileUtil {
             }
         }
 
-        return midPath;
+        return tempFolderRelativePath;
     }
 
 }

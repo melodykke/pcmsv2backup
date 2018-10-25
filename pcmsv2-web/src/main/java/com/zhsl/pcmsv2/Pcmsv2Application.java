@@ -33,9 +33,9 @@ public class Pcmsv2Application {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //单个文件最大
-        factory.setMaxFileSize("1024000KB"); //KB,MB
+        factory.setMaxFileSize("51200KB"); //KB,50MB
         /// 设置总上传数据总大小
-        factory.setMaxRequestSize("10240000KB");
+        factory.setMaxRequestSize("102400KB"); // 100MB
         return factory.createMultipartConfig();
     }
 }

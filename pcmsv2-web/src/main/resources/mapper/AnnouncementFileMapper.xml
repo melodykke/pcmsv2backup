@@ -16,10 +16,10 @@
     </delete>
 
     <insert id="insert" parameterType="com.zhsl.pcmsv2.model.AnnouncementFile">
-    insert into announcement_file (announcement_file_id, create_time,
-      file_addr, file_desc, announcement_id)
-    values (#{announcementFileId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-      #{fileAddr,jdbcType=VARCHAR}, #{fileDesc,jdbcType=VARCHAR}, #{announcementId,jdbcType=VARCHAR})
+        insert into announcement_file (announcement_file_id, create_time,
+          file_addr, file_desc, announcement_id)
+        values (#{announcementFileId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+          #{fileAddr,jdbcType=VARCHAR}, #{fileDesc,jdbcType=VARCHAR}, #{announcementId,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.zhsl.pcmsv2.model.AnnouncementFile">
@@ -41,4 +41,14 @@
         select announcement_file_id, create_time, file_addr, file_desc, announcement_id
         from announcement_file
     </select>
+
+    <insert id="batchInsert">
+        insert into announcement_file (announcement_file_id, create_time,
+        file_addr, file_desc, announcement_id)
+        values
+          <foreach collection="list" item="announcementFile" separator=",">
+              ((#{announcementFile.announcementFileId,jdbcType=VARCHAR}, #{announcementFile.createTime,jdbcType=TIMESTAMP},
+              #{announcementFile.fileAddr,jdbcType=VARCHAR}, #{announcementFile.fileDesc,jdbcType=VARCHAR}, #{announcementFile.announcementId,jdbcType=VARCHAR})
+          </foreach>
+    </insert>
 </mapper>

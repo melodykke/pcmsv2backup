@@ -20,7 +20,7 @@ public class Announcement {
 
     private String content;
 
-    private List<AnnouncementFile> announcementFiles;
+    private List<AnnouncementFile> files;
 
     public String getAnnouncementId() {
         return announcementId;
@@ -86,11 +86,11 @@ public class Announcement {
         this.content = content == null ? null : content.trim();
     }
 
-    public List<AnnouncementFile> getAnnouncementFiles() {
-        return announcementFiles;
+    public List<AnnouncementFile> getFiles() {
+        return files;
     }
 
-    public void setAnnouncementFiles(List<AnnouncementFile> announcementFiles) {
-        this.announcementFiles = announcementFiles;
+    public void setFiles(List<AnnouncementFile> files) {
+        this.files = files;
     }
 }

@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class AnnouncementDTO {
 
-    private String rtFileTempPath;
+    // 如果上一个操作有文件上传，则将上传的文件的临时相对路径路径赋在此属性上
+    private String tempFolderRelativePath;
 
     private String announcementId;
 
@@ -26,5 +27,5 @@ public class AnnouncementDTO {
     @NotBlank(message = "内容不能为空！")
     private String content;
 
-    private List<AnnouncementFile> announcementFiles;
+    private List<AnnouncementFile> files;
 }
