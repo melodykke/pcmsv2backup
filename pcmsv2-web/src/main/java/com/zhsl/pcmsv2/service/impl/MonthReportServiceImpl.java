@@ -327,8 +327,7 @@ public class MonthReportServiceImpl implements MonthReportService {
     public List<ProjectMonthlyReportVO> findByBaseInfoIdAndPeriodWithImg(String baseInfoId, String startDate, String endDate) {
 
         if (startDate == null || "".equals(startDate)) {
-            log.error("【月报】 区间区间查找月报时， 时间参数为空");
-            throw new SysException(SysEnum.INVALID_INFO_RECEIVED_ERROR);
+            startDate = ProjectMonthlyReportMapper.DEFAULT_START_DATE;
         }
 
         if (endDate == null || "".equals(endDate)) {
