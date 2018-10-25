@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhsl.pcmsv2.browser.enums.SysEnum;
 import com.zhsl.pcmsv2.convertor.dto2model.BaseInfoDTO2Model;
 import com.zhsl.pcmsv2.convertor.tovo.BaseInfo2VO;
+import com.zhsl.pcmsv2.convertor.tovo.Pmr2VO;
 import com.zhsl.pcmsv2.dto.BaseInfoDTO;
 import com.zhsl.pcmsv2.enums.RedisKeys;
 import com.zhsl.pcmsv2.enums.RoleEnum;
@@ -378,8 +379,10 @@ public class BaseInfoServiceImpl implements BaseInfoService {
             investmentSofar = new BigDecimal(0.00);
             availableInvestmentSofar = new BigDecimal(0.00);
         } else {
-            investmentSofar = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
-            availableInvestmentSofar = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReports);
+            List<ProjectMonthlyReportVO> projectMonthlyReportVOs = projectMonthlyReports.stream()
+                    .map(e -> Pmr2VO.convert(e)).collect(Collectors.toList());
+            investmentSofar = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReportVOs);
+            availableInvestmentSofar = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReportVOs);
         }
 
         lifeCircle = new LifeCircle(timeLimitDay, actualLimit, totalInvestment,

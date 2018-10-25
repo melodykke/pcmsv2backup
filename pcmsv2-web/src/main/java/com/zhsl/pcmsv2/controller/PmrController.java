@@ -3,6 +3,7 @@ package com.zhsl.pcmsv2.controller;
 import com.zhsl.pcmsv2.browser.support.ResultVO;
 import com.zhsl.pcmsv2.browser.util.ResultUtil;
 import com.zhsl.pcmsv2.dto.ProjectMonthlyReportDTO;
+import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.service.MonthReportService;
 import com.zhsl.pcmsv2.vo.ProjectMonthlyReportVO;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -108,7 +110,7 @@ public class PmrController {
 
     @GetMapping("/period")
     @ApiOperation(value = "普通用户调用的时间区间查询方法，只能查询自己的月报")
-    public ResultVO findByBaseInfoIdAndPeriodWithImg(HttpServletRequest request) {
+    public ResultVO findByBaseInfoIdAndPeriodWithImg(@AuthenticationPrincipal UserInfo userInfo, HttpServletRequest request) {
         String startDate = null;
         String endDate = null;
         try {
@@ -119,7 +121,7 @@ public class PmrController {
         }
 
         List<ProjectMonthlyReportVO> projectMonthlyReportVOs = monthReportService
-                .findByBaseInfoIdAndPeriodWithImg(startDate, endDate);
+                .findByBaseInfoIdAndPeriodWithImg(userInfo.getBaseInfoId(), startDate, endDate);
 
         return ResultUtil.success(projectMonthlyReportVOs);
     }
@@ -134,18 +136,33 @@ public class PmrController {
 
     /**
      * 按登陆用户所在区域获取所有水库月报的投资完成情况总和
-     * 必须要management身份的才能调用
      */
-    @GetMapping("/management/overallinvestmentcompletion")
+    @GetMapping("/overallinvestmentcompletion")
     @ApiOperation(value = "按登陆用户所在区域获取所有水库月报的投资完成情况总和(management)")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "by", value = "如果根据地区查询：region; 如果根据水库查询：baseInfo", required = false, dataType = "String"),
             @ApiImplicitParam(name = "startDate", value = "月报开始时间", required = false, dataType = "String"),
             @ApiImplicitParam(name = "endDate", value = "月报结束时间", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "regionId", value = "需要计算的区域ID，此项只能最高级用户才能传参", required = false, dataType = "Integer")
+            @ApiImplicitParam(name = "regionId", value = "需要计算的区域ID，此项只能最高级用户才能传参", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "baseInfoId", value = "计算某一个水库的投资完成总额，此项只能最高级用户才能传参(此项和其他参数互斥)", required = false, dataType = "String")
     })
-    public ResultVO getOverallinvestmentcompletion(HttpServletRequest request) {
+    public ResultVO getOverallinvestmentcompletion(@RequestParam String by, HttpServletRequest request) {
+        String startDate = "";
+        String endDate = "";
+        int regionId = 0;
+        String baseInfoId = "";
+        try {
+            startDate = ServletRequestUtils.getStringParameter(request,"startDate");
+            endDate = ServletRequestUtils.getStringParameter(request, "endDate");
+            regionId = ServletRequestUtils.getIntParameter(request, "regionId", 0);
+            baseInfoId = ServletRequestUtils.getStringParameter(request, "baseInfoId");
+        } catch (ServletRequestBindingException e) {
+            log.error("【月报】 计算用户区域内所有工程总投资完成时， 用户端传来的startDate或endDate参数接收出错，程序将采用默认值");
+        }
 
-        BigDecimal result = monthReportService.calcOverallInvestmentCompletion(request);
+        BigDecimal result = BigDecimal.ZERO;
+
+        result = monthReportService.calcOverallInvestmentCompletion(baseInfoId, regionId, startDate, endDate, by);
 
         return ResultUtil.success(result);
     }

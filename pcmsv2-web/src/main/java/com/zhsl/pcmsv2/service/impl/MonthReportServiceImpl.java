@@ -31,9 +31,7 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -320,12 +318,13 @@ public class MonthReportServiceImpl implements MonthReportService {
 
     /**
      * 查询当前用户的在某一时间段内所有的月报记录
+     * 如果是管理员 必须传baseInfoId进来查找特定水库的月报
      * @param startDate 2018-08-01
      * @param endDate
      * @return
      */
     @Override
-    public List<ProjectMonthlyReportVO> findByBaseInfoIdAndPeriodWithImg(String startDate, String endDate) {
+    public List<ProjectMonthlyReportVO> findByBaseInfoIdAndPeriodWithImg(String baseInfoId, String startDate, String endDate) {
 
         if (startDate == null || "".equals(startDate)) {
             log.error("【月报】 区间区间查找月报时， 时间参数为空");
@@ -338,13 +337,36 @@ public class MonthReportServiceImpl implements MonthReportService {
 
         UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (thisUser.getBaseInfoId() == null || "".equals(thisUser.getBaseInfoId())) {
-            log.error("【月报】 查找月报时， 用户的水库基础信息缺失，无法查找归属某一水库的项目月报");
-            throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+        // 如果是普通用户， 则只能查询自身的水库对应月报
+        if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PLP.getKey())) {
+            baseInfoId = thisUser.getBaseInfoId();
+            if (baseInfoId == null || "".equals(baseInfoId)) {
+                log.error("【月报】 查找月报时， 用户的水库基础信息缺失，无法查找归属某一水库的项目月报");
+                throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+            }
+            // 如果是管理员则查询当前要查询的水库baseInfoId是否在其辖区内
+        } else {
+            Region region = thisUser.getRegion();
+            if (region == null) {
+                log.error("【月报】 查找月报时，管理员的辖区信息为空");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+            List<Region> leafRegions = regionService.findChildrenRecursive(region.getRegionId());
+            List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
+            if (baseInfos == null || baseInfos.size() == 0) {
+                log.error("【月报】 查找月报时，管理员辖区内无水库");
+                throw new SysException(SysEnum.NOT_EXIST_RECORD);
+            }
+            List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
+            if (!baseInfoIds.contains(baseInfoId)) {
+                log.error("【月报】 查找月报时，管理员查询的水库不在辖区内");
+                throw new SysException(SysEnum.ILLEGAL_OPERATION);
+            }
         }
 
         List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper
-                .findByBaseInfoIdAndPeriodWithImg(thisUser.getBaseInfoId(), startDate, endDate);
+                .findByBaseInfoIdAndPeriodWithImg(baseInfoId, startDate, endDate);
+
         if (projectMonthlyReports == null) {
             log.error("【月报】 查找月报时，查询记录为空");
             return new ArrayList<>();
@@ -383,39 +405,44 @@ public class MonthReportServiceImpl implements MonthReportService {
 
 
     /**
-     * 根据登陆用户所属地区获取该区域下的所有月报信息
-     * 只有最高级用户才能向regionId里传非0值
+     * 根据登陆用户的水库信息获取该其所有月报信息
+     * 最高级用户才能向baseInfoId里传值
      * 按时间区间
      * @return
      */
     @Override
-    public List<ProjectMonthlyReport> findAllPmrViaUserRegionByTimeDuration(int regionId, String startDate, String endDate) {
+    public List<ProjectMonthlyReport> findAllPmrByBaseInfoIdByTimeDuration(String baseInfoId, String startDate, String endDate) {
 
-        Region region = null;
+        if (startDate == null || "".equals(startDate)) {
+            startDate = ProjectMonthlyReportMapper.DEFAULT_START_DATE;
+        }
 
-        UserInfo thisUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (endDate == null || "".equals(endDate)) {
+            endDate = new Date().toString();
+        }
 
-        if (regionId == 0) {
-            if (thisUser == null) {
-                log.error("【月报】 在获取用户所在区域所有月报信息时，用户未登录或身份信息有误");
-                return new ArrayList<>();
-            }
-            region = thisUser.getRegion();
-        } else if (regionId > 0){
-            if (RoleCheckUtil.checkIfPossessARole(thisUser, RoleEnum.PROVINCE.getKey())) {
-                region = regionService.findByRegionId(regionId);
-            } else {
-                log.error("【月报】 没有权限作此操作");
-                throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+        if (baseInfoId == null || "".equals(baseInfoId)) {
+            log.error("【月报】 通过baseinfoId和时间区间查找月报时，baseInfoId为空");
+            throw new SysException(SysEnum.INVALID_KEY_RECEIVED_ERROR);
+        }
+
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // 如果是普通用户
+        if (RoleCheckUtil.checkIfPossessARole(userInfo, "ROLE_PLP")) {
+            baseInfoId = userInfo.getBaseInfoId();
+        } else {
+            Region region = userInfo.getRegion();
+            List<Region> leafRegion = regionService.findChildrenRecursive(region.getRegionId());
+            List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegion);
+            List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
+            if (!baseInfoIds.contains(baseInfoId)) {
+                log.error("【月报】 通过baseInfoId查找水库工程月报时，水库工程不在辖区内！");
+                throw new SysException(SysEnum.ILLEGAL_OPERATION);
             }
         }
 
-        if (region == null) {
-            log.error("【月报】 在获取用户所在区域所有月报信息时，用户区域或查询区域信息为空");
-            return new ArrayList<>();
-        }
-
-        List<ProjectMonthlyReport> projectMonthlyReports = findByRegionDuring(startDate, endDate, region);
+        List<ProjectMonthlyReport> projectMonthlyReports = pmrMapper.findByBaseInfoIdAndPeriodWithImg(baseInfoId, startDate, endDate);
 
         return projectMonthlyReports;
     }
@@ -426,48 +453,100 @@ public class MonthReportServiceImpl implements MonthReportService {
      * 最高级用户 即 ROLE_PROVINCE 可以使用非0 regionId 参数 以查询某个特定区域的情况
      * @return
      */
+    /**
+     * 计算登陆用户所在区域所有工程的投资完成情况
+     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
+     * 管理员用户可以传入baseInfoId查询自己辖区内某个水库的情况
+     * @return
+     */
     @Override
-    public BigDecimal calcOverallInvestmentCompletion(HttpServletRequest request) {
-        String startDate = "";
-        String endDate = "";
-        int regionId = 0;
-        try {
-            startDate = ServletRequestUtils.getStringParameter(request,"startDate");
-            endDate = ServletRequestUtils.getStringParameter(request, "endDate");
-            regionId = ServletRequestUtils.getIntParameter(request, "regionId")==null? 0 :
-                    ServletRequestUtils.getIntParameter(request, "regionId");
-        } catch (ServletRequestBindingException e) {
-            log.error("【月报】 计算用户区域内所有工程总投资完成时， 用户端传来的startDate或endDate参数接收出错，程序将采用默认值");
+    public BigDecimal calcOverallInvestmentCompletion(String baseInfoId, int regionId, String startDate, String endDate, String by) {
+
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = Collections.EMPTY_LIST;
+
+        switch (by) {
+            case "region":
+                projectMonthlyReportVOs = findAllPmrViaUserRegionByTimeDuration(userInfo, regionId, startDate, endDate);
+                break;
+            case "baseInfo":
+                projectMonthlyReportVOs = findByBaseInfoIdAndPeriodWithImg(baseInfoId, startDate, endDate);
+                break;
+            default:
+                log.error("【月报】 调用查询投资完成总和时出错，没有明确调用方法。");
+                throw new SysException(SysEnum.METHOD_CALL_ERROR);
         }
 
-        List<ProjectMonthlyReport> projectMonthlyReports = findAllPmrViaUserRegionByTimeDuration(regionId, startDate, endDate);
-
-        BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReports);
+        BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReportVOs);
 
         return result;
-    }
+}
 
+
+   /* @Override
+    public BigDecimal calcOverallInvestmentCompletionByRegionId(int regionId, String startDate, String endDate) {
+
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = Collections.EMPTY_LIST;
+
+        projectMonthlyReportVOs = findAllPmrViaUserRegionByTimeDuration(userInfo, regionId, startDate, endDate);
+
+        BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReportVOs);
+
+        return result;
+    }*/
+
+    /**
+     * 根据登陆用户所属地区获取该区域下的所有月报信息
+     * 只有最高级用户才能向regionId里传非0值 如果高级管理员不传值 则为自己的region
+     * 如果是其他管理员则只能用自己的region
+     * 按时间区间
+     * @return List<ProjectMonthlyReport> region下的所有月报信息
+     */
     @Override
-    public void syncToRedis() {
+    public List<ProjectMonthlyReportVO> findAllPmrViaUserRegionByTimeDuration(UserInfo userInfo, int regionId, String startDate, String endDate) {
 
-        List<ProjectMonthlyReport> projectMonthlyReport = pmrMapper.selectAll();
-        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = projectMonthlyReport.stream().map(e -> Pmr2VO.convert(e))
-                .collect(Collectors.toList());
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = null;
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(() -> {
+        if (startDate == null || "".equals(startDate)) {
+            startDate = ProjectMonthlyReportMapper.DEFAULT_START_DATE;
+        }
 
-            ObjectMapper objectMapper = new ObjectMapper();
+        Region region = null;
 
-            try {
-                String projectMonthlyReportVOsStr = objectMapper.writeValueAsString(projectMonthlyReportVOs);
-                stringRedisTemplate.opsForValue().set(RedisKeys.ALLPMR.getKey(), projectMonthlyReportVOsStr);
-            } catch (JsonProcessingException e) {
-                log.error("月报信息同步至redis的过程中， 转化json出错。");
-                return;
+        // 如果是业主
+        if (RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PLP.getKey())) {
+            log.error("【月报】 没有权限作此操作");
+            throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+            // 如果是最高管理员
+        } else if (RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PROVINCE.getKey())){
+            if (regionId == 0) {
+                region = userInfo.getRegion();
+            } else {
+                region = regionService.findByRegionId(regionId);
             }
-        });
-        log.error("月报信息同步至redis完成。");
+            // 如果是其他管理员
+        } else {
+            region = userInfo.getRegion();
+        }
+
+        if (region == null) {
+            log.error("【月报】 在获取用户所在区域所有月报信息时，用户区域或查询区域信息为空");
+            return new ArrayList<>();
+        }
+
+        List<ProjectMonthlyReport> projectMonthlyReports = findByRegionDuring(startDate, endDate, region);
+
+        if (projectMonthlyReports == null || projectMonthlyReports.size() ==0) {
+            projectMonthlyReportVOs = Collections.EMPTY_LIST;
+        } else {
+            projectMonthlyReportVOs = projectMonthlyReports.stream()
+                    .map(e -> Pmr2VO.convert(e)).collect(Collectors.toList());
+        }
+
+        return projectMonthlyReportVOs;
     }
 
     /**
@@ -493,4 +572,30 @@ public class MonthReportServiceImpl implements MonthReportService {
 
         return projectMonthlyReports;
     }
+
+
+    @Override
+    public void syncToRedis() {
+
+        List<ProjectMonthlyReport> projectMonthlyReport = pmrMapper.selectAll();
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = projectMonthlyReport.stream().map(e -> Pmr2VO.convert(e))
+                .collect(Collectors.toList());
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(() -> {
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            try {
+                String projectMonthlyReportVOsStr = objectMapper.writeValueAsString(projectMonthlyReportVOs);
+                stringRedisTemplate.opsForValue().set(RedisKeys.ALLPMR.getKey(), projectMonthlyReportVOsStr);
+            } catch (JsonProcessingException e) {
+                log.error("月报信息同步至redis的过程中， 转化json出错。");
+                return;
+            }
+        });
+        log.error("月报信息同步至redis完成。");
+    }
+
+
 }

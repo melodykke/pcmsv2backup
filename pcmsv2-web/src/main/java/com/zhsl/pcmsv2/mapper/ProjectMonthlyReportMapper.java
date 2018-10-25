@@ -63,6 +63,7 @@ public interface ProjectMonthlyReportMapper {
 
     /**
      * 根据baseInfoId查找记录
+     * 时间区间如果不传就是从2000年到当前
      * @param baseInfoId
      * @return
      */

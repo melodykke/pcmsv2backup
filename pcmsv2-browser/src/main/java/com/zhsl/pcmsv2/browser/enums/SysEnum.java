@@ -3,6 +3,7 @@ package com.zhsl.pcmsv2.browser.enums;
 public enum SysEnum {
 
     LOGIN_ACCOUNT_ERROR(10000, "账户登录错误"),
+    METHOD_CALL_ERROR(9989, "查询方法未知，请查证API文档"),
     INTERNAL_ERROR(9990, "系统内部错误"),
     INVALID_INFO_RECEIVED_ERROR(9991, "系统没有收到有效的信息"),
     INVALID_KEY_RECEIVED_ERROR(9992, "系统没有收到有效的标识"),
