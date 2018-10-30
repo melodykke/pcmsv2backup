@@ -233,7 +233,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
             log.error("【基础信息】 按区域查询项目基础信息时，作查询操作的用户没有有效的区域信息");
             throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
         }
-        List<Region> childrenRegion = regionService.findChildrenRecursive(region.getRegionId());
+        List<Region> childrenRegion = regionService.findLeafRecursive(region.getRegionId());
         List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(childrenRegion);
 
         if (baseInfos == null) {
@@ -323,7 +323,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
                 throw new SysException(SysEnum.NOT_EXIST_RECORD);
             }
             // 获取所有叶子辖区
-            List<Region> leafRegions = regionService.findChildrenRecursive(regionId);
+            List<Region> leafRegions = regionService.findLeafRecursive(regionId);
             // 获取所有水库基础信息
             List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
 

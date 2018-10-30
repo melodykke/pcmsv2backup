@@ -350,7 +350,7 @@ public class MonthReportServiceImpl implements MonthReportService {
                 log.error("【月报】 查找月报时，管理员的辖区信息为空");
                 throw new SysException(SysEnum.NOT_EXIST_RECORD);
             }
-            List<Region> leafRegions = regionService.findChildrenRecursive(region.getRegionId());
+            List<Region> leafRegions = regionService.findLeafRecursive(region.getRegionId());
             List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
             if (baseInfos == null || baseInfos.size() == 0) {
                 log.error("【月报】 查找月报时，管理员辖区内无水库");
@@ -432,7 +432,7 @@ public class MonthReportServiceImpl implements MonthReportService {
             baseInfoId = userInfo.getBaseInfoId();
         } else {
             Region region = userInfo.getRegion();
-            List<Region> leafRegion = regionService.findChildrenRecursive(region.getRegionId());
+            List<Region> leafRegion = regionService.findLeafRecursive(region.getRegionId());
             List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegion);
             List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());
             if (!baseInfoIds.contains(baseInfoId)) {
@@ -562,7 +562,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 
         int thisUserRegionId = region.getRegionId();
 
-        List<Region> leafRegions = regionService.findChildrenRecursive(thisUserRegionId);
+        List<Region> leafRegions = regionService.findLeafRecursive(thisUserRegionId);
 
         List<BaseInfo> baseInfos = baseInfoMapper.findByRegionsIn(leafRegions);
         List<String> baseInfoIds = baseInfos.stream().map(e -> e.getBaseInfoId()).collect(Collectors.toList());

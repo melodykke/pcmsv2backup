@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 @Slf4j
 @Service
@@ -26,7 +25,7 @@ public class RegionServiceImpl implements RegionService {
      * @return
      */
     @Override
-    public List<Region> findChildrenRecursive(int regionId) {
+    public List<Region> findLeafRecursive(int regionId) {
 
         List<Region> leafRegions = new ArrayList<>();
 
@@ -36,7 +35,7 @@ public class RegionServiceImpl implements RegionService {
 
         rootRegionList.add(region);
 
-        List<Region> children = recurse(rootRegionList, leafRegions);
+        List<Region> children = recurseLeaf(rootRegionList, leafRegions);
 
         System.out.println(children);
 
@@ -64,13 +63,13 @@ public class RegionServiceImpl implements RegionService {
      * @param leafRegions
      * @return
      */
-    public List<Region> recurse(List<Region> rootRegions, List<Region> leafRegions) {
+    public List<Region> recurseLeaf(List<Region> rootRegions, List<Region> leafRegions) {
 
         for (Region region : rootRegions) {
             List<Region> childRegions = regionMapper.findChildrenByParentId(region.getRegionId());
 
             if (childRegions != null || childRegions.size() > 0) {
-                recurse(childRegions, leafRegions);
+                recurseLeaf(childRegions, leafRegions);
             }
 
             if (childRegions == null || childRegions.size() == 0) {
@@ -83,4 +82,57 @@ public class RegionServiceImpl implements RegionService {
         return leafRegions;
     }
 
+    /**
+     * 查找包含自身的所有节点（包括节点和叶子节点还有root）
+     * @param regionId
+     * @return
+     */
+    @Override
+    public List<Region> findNodeRecursive(Integer regionId) {
+
+        List<Region> nodeRegions = new ArrayList<>();
+        List<Region> rootRegions = new ArrayList<>();
+
+        Region rootRegion = regionMapper.selectByPrimaryKey(regionId);
+
+        if (rootRegion == null) {
+            log.error("【区域】 查询所有区域node节点时出错，root节点为空！");
+            return nodeRegions;
+        }
+
+        rootRegions.add(rootRegion);
+
+        nodeRegions = recurseNode(rootRegions, nodeRegions);
+
+        return nodeRegions;
+    }
+
+    @Override
+    public List<Region> findSubRegions(int regionId) {
+        return regionMapper.findChildrenByParentId(regionId);
+    }
+
+    /**
+     * 递归查找所有node
+     * @param rootRegions
+     * @param NodeRegions
+     * @return
+     */
+    public List<Region> recurseNode(List<Region> rootRegions, List<Region> NodeRegions) {
+
+        for (Region region : rootRegions) {
+
+            NodeRegions.add(region);
+
+            List<Region> childRegions = regionMapper.findChildrenByParentId(region.getRegionId());
+
+
+            if (childRegions != null || childRegions.size() > 0) {
+                recurseLeaf(childRegions, NodeRegions);
+            }
+
+        }
+
+        return NodeRegions;
+    }
 }

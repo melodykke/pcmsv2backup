@@ -146,7 +146,7 @@ public class PmrController {
             @ApiImplicitParam(name = "regionId", value = "需要计算的区域ID，此项只能最高级用户才能传参", required = false, dataType = "Integer"),
             @ApiImplicitParam(name = "baseInfoId", value = "计算某一个水库的投资完成总额，此项只能最高级用户才能传参(此项和其他参数互斥)", required = false, dataType = "String")
     })
-    public ResultVO getOverallinvestmentcompletion(@RequestParam String by, HttpServletRequest request) {
+    public ResultVO getOverallInvestmentCompletion(@RequestParam String by, HttpServletRequest request) {
         String startDate = "";
         String endDate = "";
         int regionId = 0;

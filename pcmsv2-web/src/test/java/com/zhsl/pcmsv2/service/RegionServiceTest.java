@@ -21,11 +21,19 @@ public class RegionServiceTest {
     @Test
     public void findChildrenRecursive() throws Exception {
 
-        List<Region> leafs = regionService.findChildrenRecursive(1);
+        List<Region> leafs = regionService.findLeafRecursive(1);
 
         for (Region leaf : leafs) {
             System.out.println(leaf.getRegionName());
         }
     }
 
+    @Test
+    public void findNodeRecursive() throws Exception {
+
+        List<Region> nodeRegions = regionService.findNodeRecursive(7);
+
+        System.out.println(nodeRegions);
+
+    }
 }
