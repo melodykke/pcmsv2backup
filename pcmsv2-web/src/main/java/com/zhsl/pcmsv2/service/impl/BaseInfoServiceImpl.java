@@ -339,6 +339,17 @@ public class BaseInfoServiceImpl implements BaseInfoService {
 
         return buildLifeCircle(baseInfo);
     }
+
+    /**
+     * 查找区域集的水库集
+     * @param regions
+     * @return
+     */
+    @Override
+    public List<BaseInfo> findByRegionIdsIn(List<Region> regions) {
+        return baseInfoMapper.findByRegionsIn(regions);
+    }
+
     // 构建生命周期
     protected LifeCircle buildLifeCircle(BaseInfo baseInfo) {
 

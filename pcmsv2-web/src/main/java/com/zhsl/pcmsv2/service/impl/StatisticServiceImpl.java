@@ -4,10 +4,14 @@ import com.zhsl.pcmsv2.browser.enums.SysEnum;
 import com.zhsl.pcmsv2.enums.RoleEnum;
 import com.zhsl.pcmsv2.exception.SysException;
 import com.zhsl.pcmsv2.mapper.RegionMapper;
+import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.UserInfo;
+import com.zhsl.pcmsv2.service.BaseInfoService;
+import com.zhsl.pcmsv2.service.MonthReportService;
 import com.zhsl.pcmsv2.service.RegionService;
 import com.zhsl.pcmsv2.service.StatisticService;
+import com.zhsl.pcmsv2.util.BaseInfoCalculator;
 import com.zhsl.pcmsv2.util.BeanUtils;
 import com.zhsl.pcmsv2.util.RoleCheckUtil;
 import com.zhsl.pcmsv2.vo.RegionInvestmentVO;
@@ -16,8 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +38,12 @@ public class StatisticServiceImpl implements StatisticService {
     @Autowired
     private RegionService regionService;
 
+    @Autowired
+    private BaseInfoService baseInfoService;
+
+    @Autowired
+    private MonthReportService monthReportService;
+
 
     /**
      * 根据region 计算此区域内水库的总投资
@@ -38,7 +53,18 @@ public class StatisticServiceImpl implements StatisticService {
      * @return RegionInvestmentVO
      */
     @Override
-    public RegionInvestmentVO calcRegionInvestmentStatistic(int regionId) {
+    public RegionInvestmentVO calcRegionInvestmentStatistic(HttpServletRequest request) {
+        int regionId = 0;
+        String startDate = "";
+        String endDate = "";
+        try {
+            regionId = ServletRequestUtils.getIntParameter(request, "regionId") == null ? 0 :
+                    ServletRequestUtils.getIntParameter(request, "regionId");
+            startDate = ServletRequestUtils.getStringParameter(request, "startDate");
+            endDate = ServletRequestUtils.getStringParameter(request, "endDate");
+        } catch (ServletRequestBindingException e) {
+           log.info("【数据处理】 数据处理时，没有接收到指定参数，系统采用默认值");
+        }
 
         if (regionId == 0) {
             log.error("【数据处理】 数据处理时出错，调用calcRegionInvestmentStatistic方法人员不具备权限，非法操作！");
@@ -70,7 +96,7 @@ public class StatisticServiceImpl implements StatisticService {
             }
 
             // 如果以上检查都OK的话，正式进入以下计算逻辑
-            RegionInvestmentVO rootRI = buildRegionInvestment(regionId);
+            RegionInvestmentVO rootRI = buildRegionInvestment(regionId, startDate, endDate);
 
             List<Region> subRegions = regionService.findSubRegions(regionId);
             if (subRegions != null && subRegions.size() >0) {
@@ -78,7 +104,7 @@ public class StatisticServiceImpl implements StatisticService {
                 List<RegionInvestmentVO> subRegionInvestmentVOs = new ArrayList<>();
 
                 for (Region nodeRegion : subRegions) {
-                    RegionInvestmentVO nodeRI = buildRegionInvestment(nodeRegion.getRegionId());
+                    RegionInvestmentVO nodeRI = buildRegionInvestment(nodeRegion.getRegionId(), startDate, endDate);
                     subRegionInvestmentVOs.add(nodeRI);
                 }
 
@@ -91,16 +117,31 @@ public class StatisticServiceImpl implements StatisticService {
         return null;
     }
 
-    protected RegionInvestmentVO buildRegionInvestment(int regionId) {
+    protected RegionInvestmentVO buildRegionInvestment(int regionId, String startDate, String endDate) {
+
+        if (endDate == null || "".equals(endDate)) {
+            endDate = new Date().toString();
+        }
 
         RegionInvestmentVO regionInvestmentVO = new RegionInvestmentVO();
         Region region = regionService.findByRegionId(regionId);
 
+        // 赋值区域信息
         BeanUtils.copyProperties(region, regionInvestmentVO);
 
-        regionInvestmentVO.setTotalInvestment(null);
-        regionInvestmentVO.setInvestmentSofar(null);
-        regionInvestmentVO.setAvailableInvestmentSofar(null);
+        // 计算总投资
+        List<Region> leafRegions = regionService.findLeafRecursive(regionId);
+        List<BaseInfo> baseInfos = baseInfoService.findByRegionIdsIn(leafRegions);
+        BigDecimal totalInvestment = BaseInfoCalculator.calcTotalInvestment(baseInfos);
+        regionInvestmentVO.setTotalInvestment(totalInvestment);
+
+        // 计算到某个时间点的投资完成
+        BigDecimal investmentSofar = monthReportService.calcOverallInvestmentCompletion(null, regionId, startDate, endDate, "region");
+        regionInvestmentVO.setInvestmentSofar(investmentSofar);
+
+        // 计算到某个时间点的到位资金
+        BigDecimal investmentAvailableSofar = monthReportService.calcOverallInvestmentAvailable(null, regionId, startDate, endDate, "region");
+        regionInvestmentVO.setAvailableInvestmentSofar(investmentAvailableSofar);
 
         return regionInvestmentVO;
     }

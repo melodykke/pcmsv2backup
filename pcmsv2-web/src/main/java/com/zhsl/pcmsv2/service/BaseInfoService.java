@@ -3,6 +3,7 @@ package com.zhsl.pcmsv2.service;
 import com.zhsl.pcmsv2.dto.BaseInfoDTO;
 import com.zhsl.pcmsv2.model.BaseInfo;
 import com.zhsl.pcmsv2.model.Feedback;
+import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.model.UserInfo;
 import com.zhsl.pcmsv2.vo.BaseInfoVO;
 import com.zhsl.pcmsv2.vo.LifeCircle;
@@ -63,6 +64,13 @@ public interface BaseInfoService {
      * @return
      */
     LifeCircle getLifeCircle(String baseInfoId);
+
+    /**
+     * 查找区域集的水库集
+     * @param regions
+     * @return
+     */
+    List<BaseInfo> findByRegionIdsIn(List<Region> regions);
 
     /**
      * 将数据库中的所有baseInfo信息缓存至redis中 key：allBaseInfo

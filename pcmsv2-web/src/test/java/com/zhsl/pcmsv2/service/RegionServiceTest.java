@@ -31,7 +31,7 @@ public class RegionServiceTest {
     @Test
     public void findNodeRecursive() throws Exception {
 
-        List<Region> nodeRegions = regionService.findNodeRecursive(7);
+        List<Region> nodeRegions = regionService.findNodeRecursive(1);
 
         System.out.println(nodeRegions);
 

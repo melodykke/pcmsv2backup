@@ -446,20 +446,8 @@ public class MonthReportServiceImpl implements MonthReportService {
         return projectMonthlyReports;
     }
 
-    /**
-     * 计算登陆用户所在区域所有工程的投资完成情况
-     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
-     * 最高级用户 即 ROLE_PROVINCE 可以使用非0 regionId 参数 以查询某个特定区域的情况
-     * @return
-     */
-    /**
-     * 计算登陆用户所在区域所有工程的投资完成情况
-     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
-     * 管理员用户可以传入baseInfoId查询自己辖区内某个水库的情况
-     * @return
-     */
-    @Override
-    public BigDecimal calcOverallInvestmentCompletion(String baseInfoId, int regionId, String startDate, String endDate, String by) {
+
+    protected List<ProjectMonthlyReportVO> conditionalFindPmr(String baseInfoId, int regionId, String startDate, String endDate, String by) {
 
         UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -477,30 +465,51 @@ public class MonthReportServiceImpl implements MonthReportService {
                 throw new SysException(SysEnum.METHOD_CALL_ERROR);
         }
 
+        return projectMonthlyReportVOs;
+    }
+
+    /**
+     * 计算登陆用户所在区域所有工程的投资完成情况
+     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
+     * 最高级用户 即 ROLE_PROVINCE 可以使用非0 regionId 参数 以查询某个特定区域的情况
+     * @return
+     */
+    /**
+     * 计算登陆用户所在区域所有工程的投资完成情况
+     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
+     * 管理员用户可以传入baseInfoId查询自己辖区内某个水库的情况
+     * @return
+     */
+    @Override
+    public BigDecimal calcOverallInvestmentCompletion(String baseInfoId, int regionId, String startDate, String endDate, String by) {
+
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = conditionalFindPmr(baseInfoId, regionId, startDate, endDate, by);
+
         BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReportVOs);
 
         return result;
-}
+    }
 
+    /**
+     * 计算登陆用户所在区域所有工程的资金到位情况
+     * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
+     * 管理员用户可以传入baseInfoId查询自己辖区内某个水库的情况
+     * @return
+     */
+    @Override
+    public BigDecimal calcOverallInvestmentAvailable(String baseInfoId, int regionId, String startDate, String endDate, String by) {
 
-   /* @Override
-    public BigDecimal calcOverallInvestmentCompletionByRegionId(int regionId, String startDate, String endDate) {
+        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = conditionalFindPmr(baseInfoId, regionId, startDate, endDate, by);
 
-        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        List<ProjectMonthlyReportVO> projectMonthlyReportVOs = Collections.EMPTY_LIST;
-
-        projectMonthlyReportVOs = findAllPmrViaUserRegionByTimeDuration(userInfo, regionId, startDate, endDate);
-
-        BigDecimal result = PmrCalculator.calOverallInvestmentCompletion(projectMonthlyReportVOs);
+        BigDecimal result = PmrCalculator.calOverallAvailableInvestment(projectMonthlyReportVOs);
 
         return result;
-    }*/
+    }
 
     /**
      * 根据登陆用户所属地区获取该区域下的所有月报信息
-     * 只有最高级用户才能向regionId里传非0值 如果高级管理员不传值 则为自己的region
-     * 如果是其他管理员则只能用自己的region
+     * 只有管理员才能向regionId里传非0值 如果不传值 则为自己管辖区域的region
+     * 如果regionId传了不属于自己管辖区域的 则无权限
      * 按时间区间
      * @return List<ProjectMonthlyReport> region下的所有月报信息
      */
@@ -513,27 +522,29 @@ public class MonthReportServiceImpl implements MonthReportService {
             startDate = ProjectMonthlyReportMapper.DEFAULT_START_DATE;
         }
 
-        Region region = null;
+        Region region = userInfo.getRegion();
 
-        // 如果是业主
-        if (RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PLP.getKey())) {
-            log.error("【月报】 没有权限作此操作");
-            throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
-            // 如果是最高管理员
-        } else if (RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PROVINCE.getKey())){
-            if (regionId == 0) {
-                region = userInfo.getRegion();
-            } else {
-                region = regionService.findByRegionId(regionId);
+        if (!RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PLP.getKey())){
+
+            if (region == null) {
+                log.error("【月报】 根据区域信息获取月报时，获取用户所在区域信息时出错！");
+                throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
             }
-            // 如果是其他管理员
-        } else {
-            region = userInfo.getRegion();
-        }
+            int myRegionId = region.getRegionId();
 
-        if (region == null) {
-            log.error("【月报】 在获取用户所在区域所有月报信息时，用户区域或查询区域信息为空");
-            return new ArrayList<>();
+            List<Region> nodeRegions = regionService.findNodeRecursive(myRegionId);
+            if (nodeRegions == null || nodeRegions.size() == 0) {
+                log.error("【月报】 根据区域信息获取月报时，获取用户管辖区域信息时出错！");
+                throw new SysException(SysEnum.PRECONDITION_MISSING_RECORD);
+            }
+            List<Integer> nodeRegionIds = nodeRegions.stream().map(e -> e.getRegionId()).collect(Collectors.toList());
+            // 检查传入查询的regionId是否是调用本方法的用户管辖的
+            if (!nodeRegionIds.contains(regionId)) {
+                log.error("【月报】 根据区域信息获取月报时，用户不具备权限，" +
+                        "不能查询不属于自己辖区的情况，非法操作！");
+                throw new SysException(SysEnum.ILLEGAL_OPERATION);
+            }
+            region = regionService.findByRegionId(regionId);
         }
 
         List<ProjectMonthlyReport> projectMonthlyReports = findByRegionDuring(startDate, endDate, region);

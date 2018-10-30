@@ -101,12 +101,12 @@ public interface MonthReportService {
     BigDecimal calcOverallInvestmentCompletion(String baseInfoId, int regionId, String startDate, String endDate, String by);
 
     /**
-     * 计算登陆用户所在区域所有工程的投资完成情况
+     * 计算登陆用户所在区域所有工程的资金到位情况
      * 三个参数为选填 startDate 默认从2000年开始 endDate默认为当前时间 regionId默认为0 即查询自身区域内
-     * 最高级用户 即 ROLE_PROVINCE 可以使用非0 regionId 参数 以查询某个特定区域的情况
+     * 管理员用户可以传入baseInfoId查询自己辖区内某个水库的情况
      * @return
      */
-   // BigDecimal calcOverallInvestmentCompletionByRegionId(int regionId, String startDate, String endDate);
+    BigDecimal calcOverallInvestmentAvailable(String baseInfoId, int regionId, String startDate, String endDate, String by);
 
     /**
      * 和Redis缓存同步

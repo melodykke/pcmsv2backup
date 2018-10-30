@@ -3,6 +3,8 @@ package com.zhsl.pcmsv2.service;
 import com.zhsl.pcmsv2.model.Region;
 import com.zhsl.pcmsv2.vo.RegionInvestmentVO;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface StatisticService {
 
     /**
@@ -12,6 +14,6 @@ public interface StatisticService {
      * @param regionId
      * @return RegionInvestmentVO
      */
-    RegionInvestmentVO calcRegionInvestmentStatistic(int regionId);
+    RegionInvestmentVO calcRegionInvestmentStatistic(HttpServletRequest request);
 
 }

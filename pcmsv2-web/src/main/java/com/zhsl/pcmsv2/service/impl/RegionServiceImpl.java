@@ -115,24 +115,24 @@ public class RegionServiceImpl implements RegionService {
     /**
      * 递归查找所有node
      * @param rootRegions
-     * @param NodeRegions
+     * @param nodeRegions
      * @return
      */
-    public List<Region> recurseNode(List<Region> rootRegions, List<Region> NodeRegions) {
+    public List<Region> recurseNode(List<Region> rootRegions, List<Region> nodeRegions) {
 
         for (Region region : rootRegions) {
 
-            NodeRegions.add(region);
+            nodeRegions.add(region);
 
             List<Region> childRegions = regionMapper.findChildrenByParentId(region.getRegionId());
 
 
             if (childRegions != null || childRegions.size() > 0) {
-                recurseLeaf(childRegions, NodeRegions);
+                recurseNode(childRegions, nodeRegions);
             }
 
         }
 
-        return NodeRegions;
+        return nodeRegions;
     }
 }
