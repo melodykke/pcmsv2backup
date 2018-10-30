@@ -49,7 +49,7 @@ public class StatisticServiceImpl implements StatisticService {
      * 根据region 计算此区域内水库的总投资
      * 投资完成 和 资金到位的情况
      * 此方法只能管理员调用
-     * @param regionId
+     * @param request
      * @return RegionInvestmentVO
      */
     @Override
@@ -57,8 +57,15 @@ public class StatisticServiceImpl implements StatisticService {
         int regionId = 0;
         String startDate = "";
         String endDate = "";
+
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Region region = userInfo.getRegion();
+        if (region == null) {
+            log.error("【数据处理】 数据处理时出错，调用calcRegionInvestmentStatistic方法人员的管辖区域出错！");
+            throw new SysException(SysEnum.NOT_EXIST_RECORD);
+        }
         try {
-            regionId = ServletRequestUtils.getIntParameter(request, "regionId") == null ? 0 :
+            regionId = ServletRequestUtils.getIntParameter(request, "regionId") == null ? region.getRegionId() :
                     ServletRequestUtils.getIntParameter(request, "regionId");
             startDate = ServletRequestUtils.getStringParameter(request, "startDate");
             endDate = ServletRequestUtils.getStringParameter(request, "endDate");
@@ -70,8 +77,6 @@ public class StatisticServiceImpl implements StatisticService {
             log.error("【数据处理】 数据处理时出错，调用calcRegionInvestmentStatistic方法人员不具备权限，非法操作！");
             throw new SysException(SysEnum.INVALID_KEY_RECEIVED_ERROR);
         }
-
-        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!RoleCheckUtil.checkIfPossessARole(userInfo, RoleEnum.PLP.getKey())) {
 
