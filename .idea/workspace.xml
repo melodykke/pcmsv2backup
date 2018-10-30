@@ -35,92 +35,85 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ImageCodeProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/image/ImageCodeProcessor.java">
+      <file leaf-file-name="SSOAuthenticationFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="13" column="57" lean-forward="false" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+            <state relative-caret-position="171">
+              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsernamePasswordAuthenticationFilter.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="516">
+              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SmsCodeProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/sms/SmsCodeProcessor.java">
+      <file leaf-file-name="ProviderManager.java" pinned="false" current-in-tab="true">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/ProviderManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="14" column="52" lean-forward="false" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-              <folding />
+            <state relative-caret-position="322">
+              <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+              <folding>
+                <element signature="e#10206#10207#0" expanded="true" />
+                <element signature="e#10229#10230#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractValidateCodeProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/impl/AbstractValidateCodeProcessor.java">
+      <file leaf-file-name="SSOAuthenticationProvider.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="106" column="57" lean-forward="true" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="57" />
-              <folding />
+            <state relative-caret-position="350">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BrowserSecurityController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityController.java">
+      <file leaf-file-name="SSOAuthenticationSecurityConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-295">
-              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="254">
+              <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ValidateCodeController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeController.java">
+      <file leaf-file-name="FilterConfigurerAdpaterManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/FilterConfigurerAdpaterManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="293">
+              <caret line="24" column="54" lean-forward="false" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ValidateCodeFilter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeFilter.java">
+      <file leaf-file-name="BrowserSecurityConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1495">
-              <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValidateCodeProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-65">
-              <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValidateCodeProcessorHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeProcessorHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValidateCodeSecurityConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeSecurityConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="234">
+              <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,13 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>total</find>
-      <find>time</find>
-      <find>findByBaseInfoIdWithImg</find>
-      <find>getLifeCircle</find>
-      <find>findAll</find>
-      <find>removeTopUser</find>
-      <find>findAl</find>
       <find>batchInsertUsersRoles</find>
       <find>bat</find>
       <find>startDate</find>
@@ -169,6 +155,13 @@
       <find>onAuthentication</find>
       <find>SmsCodeAuthenticationSecurityConfig</find>
       <find>pathMatcher</find>
+      <find>getValidateCodeType</find>
+      <find>usernameParameter</find>
+      <find>authenticationManager</find>
+      <find>Validate</find>
+      <find>au</find>
+      <find>authenticate</find>
+      <find>attemptAuthentication</find>
     </findStrings>
     <replaceStrings>
       <replace>com.zhsl.pcmsv2.model</replace>
@@ -192,28 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/SysRoleVO.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/UserService.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/resources/mapper/SysUserRoleMapper.xml" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/mapper/SysUserRoleMapper.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/test/java/com/zhsl/pcmsv2/mapper/SysUserRoleMapperTest.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/Region.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/mapper/AnnouncementMapper.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/UserInfoVO.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/convertor/tovo/UserInfo2VO.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/resources/mapper/UserInfoMapper.xml" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/convertor/tovo/Announcement2VO.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/controller/AnnouncementController.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/resources/generator/generatorConfig.xml" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/resources/mapper/AnnouncementMapper.xml" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/AnnouncementService.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/controller/FileController.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/convertor/dto2model/AnnouncementDTO2Model.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/FileService.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/FileServiceImpl.java" />
-        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/util/PathUtil.java" />
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/Announcement.java" />
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/AnnouncementDTO.java" />
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/AnnouncementVO.java" />
@@ -243,6 +214,28 @@
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/MonthReportServiceImpl.java" />
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/controller/StatisticController.java" />
         <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/StatisticServiceImpl.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/properties/SSOPropertyConfig.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/oauth/SSOFilter.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/pom.xml" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/util/OauthUtil.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/OauthDataVO.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/OauthDataDTO.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/exception/SSOAuthenticationException.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/properties/SSOProperties.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/ValidateIdentityProcessor.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/UsernameAuthenticationToken.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOFilter.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationProvider.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/authorize/SSOAuthorizeConfigProvider.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/FilterConfigurerAdpater.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/FilterConfigurerAdpaterManger.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeFilter.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/SecurityConfigurerAdapterManager.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/FilterConfigurerAdpaterManager.java" />
+        <option value="$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityConfig.java" />
       </list>
     </option>
   </component>
@@ -364,15 +357,6 @@
             <path>
               <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
               <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -395,24 +379,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
@@ -430,16 +396,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="properties" type="462c0819:PsiDirectoryNode" />
+              <item name="filter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
@@ -453,33 +410,6 @@
             <path>
               <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="image" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="sms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
               <item name="pcmsv2-web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -510,17 +440,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pcmsv2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="pcmsv2" type="462c0819:PsiDirectoryNode" />
-              <item name="Pcmsv2Application" type="1a9f42e2:ClassTreeNode" />
+              <item name="oauth" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -539,7 +459,7 @@
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3024911" />
-    <property name="SearchEverywhereHistoryKey" value="User&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;DaoPro&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.java&#10;Userpassword&#9;PSI&#9;JAVA://org.springframework.security.authentication.UsernamePasswordAuthenticationToken&#10;UserPas&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;ChangeSessionAuth&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy&#10;SessionAuthenticationStrategy&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/SessionAuthenticationStrategy.java&#10;CompositeSessionAu&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy&#10;UserPassworFi&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter&#10; DefaultPostAuthenticationChecks&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.DefaultPostAuthenticationChecks&#10;DaoAuthProv&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.DaoAuthenticationProvider&#10;SysE&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/enums/SysEnum.java&#10;FileUploadBase$FileSizeLimitExceededException&#9;PSI&#9;JAVA://org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException&#10;AnnouncementVo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/AnnouncementVO.java&#10;Ann&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.Announcement&#10;Lif&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.vo.LifeCircle&#10;RoleVO&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/SysRoleVO.java&#10;UserInfo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/UserInfoVO.java&#10;R&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/Region.java&#10;Region&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.Region&#10;SysR&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.SysRole&#10;Li&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/LifeCircle.java&#10;BaseINfoD&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/BaseInfoDTO.java&#10;ProviderMa&#9;PSI&#9;JAVA://org.springframework.security.authentication.ProviderManager&#10;UsernamePassworFilter&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter&#10;Sys&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/enums/SysEnum.java&#10;Result&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.browser.support.ResultVO&#10;Plant&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/PlantState.java&#10;BaseINfo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/BaseInfo.java&#10;DaoAuthenticationP&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.DaoAuthenticationProvider&#10;DaoAuthen&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer&#10;Cal&#9;PSI&#9;JAVA://java.util.Calendar&#10;ProjectM&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/ProjectMonthlyReport.java&#10;BaseInfo&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.BaseInfo&#10;ExpressionInterceptUrlRegistry&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;ExpressionInterceptUrlRegistry &#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;.ExpressionInterceptUrlRegistry &#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;FilterInterc&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/access/intercept/FilterSecurityInterceptor.java&#10;UserS&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/UserServiceImpl.java&#10;UserINfo&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.UserInfo&#10;UserInfoD&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.dto.UserInfoDTO&#10;UserInfoV&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/UserInfoVO.java&#10;UserP&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;Dao&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.java&#10;AntPath&#9;PSI&#9;JAVA://org.springframework.util.AntPathMatcher&#10;Usernam&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;providerm&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/ProviderManager.java&#10;ht&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-config/5.0.8.RELEASE/spring-security-config-5.0.8.RELEASE-sources.jar!/org/springframework/security/config/annotation/web/builders/HttpSecurity.java&#10;we&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-config/5.0.8.RELEASE/spring-security-config-5.0.8.RELEASE-sources.jar!/org/springframework/security/config/annotation/web/builders/WebSecurity.java&#10;HttpSecurity&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.builders.HttpSecurity&#10;WebSecurity&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.builders.WebSecurity" />
+    <property name="SearchEverywhereHistoryKey" value="Userp&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;User&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;ProviderMana&#9;PSI&#9;JAVA://org.springframework.security.authentication.ProviderManager&#10;AuthenticationM&#9;PSI&#9;JAVA://org.springframework.security.authentication.AuthenticationManager&#10;SmsTo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationToken.java&#10;UserP&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;ImagevalidateCodeProcessor&#9;null&#9;null&#10;DaoPro&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.java&#10;Userpassword&#9;PSI&#9;JAVA://org.springframework.security.authentication.UsernamePasswordAuthenticationToken&#10;UserPas&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java&#10;ChangeSessionAuth&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy&#10;SessionAuthenticationStrategy&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/SessionAuthenticationStrategy.java&#10;CompositeSessionAu&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy&#10;UserPassworFi&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter&#10; DefaultPostAuthenticationChecks&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.DefaultPostAuthenticationChecks&#10;DaoAuthProv&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.DaoAuthenticationProvider&#10;SysE&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/enums/SysEnum.java&#10;FileUploadBase$FileSizeLimitExceededException&#9;PSI&#9;JAVA://org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException&#10;AnnouncementVo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/AnnouncementVO.java&#10;Ann&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.Announcement&#10;Lif&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.vo.LifeCircle&#10;RoleVO&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/SysRoleVO.java&#10;UserInfo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/UserInfoVO.java&#10;R&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/Region.java&#10;Region&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.Region&#10;SysR&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.SysRole&#10;Li&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/LifeCircle.java&#10;BaseINfoD&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/BaseInfoDTO.java&#10;ProviderMa&#9;PSI&#9;JAVA://org.springframework.security.authentication.ProviderManager&#10;UsernamePassworFilter&#9;PSI&#9;JAVA://org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter&#10;Sys&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/enums/SysEnum.java&#10;Result&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.browser.support.ResultVO&#10;Plant&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/PlantState.java&#10;BaseINfo&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/BaseInfo.java&#10;DaoAuthenticationP&#9;PSI&#9;JAVA://org.springframework.security.authentication.dao.DaoAuthenticationProvider&#10;DaoAuthen&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer&#10;Cal&#9;PSI&#9;JAVA://java.util.Calendar&#10;ProjectM&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/model/ProjectMonthlyReport.java&#10;BaseInfo&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.BaseInfo&#10;ExpressionInterceptUrlRegistry&#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;ExpressionInterceptUrlRegistry &#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;.ExpressionInterceptUrlRegistry &#9;PSI&#9;JAVA://org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry&#10;FilterInterc&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/access/intercept/FilterSecurityInterceptor.java&#10;UserS&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/service/impl/UserServiceImpl.java&#10;UserINfo&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.model.UserInfo&#10;UserInfoD&#9;PSI&#9;JAVA://com.zhsl.pcmsv2.dto.UserInfoDTO&#10;UserInfoV&#9;FILE&#9;file://D:/IdeaProjects/pcmsv2/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/vo/UserInfoVO.java&#10;Dao&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.java&#10;AntPath&#9;PSI&#9;JAVA://org.springframework.util.AntPathMatcher&#10;Usernam&#9;FILE&#9;jar://D:/repository/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelOrder0" value="0" />
@@ -556,19 +476,19 @@
       <recent name="com.zhsl.pcmsv2.mapper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.zhsl.pcmsv2.convertor.dto2model" />
+      <recent name="com.zhsl.pcmsv2.sso.oauth" />
+      <recent name="com.zhsl.pcmsv2.exception" />
       <recent name="com.zhsl.pcmsv2.util" />
+      <recent name="com.zhsl.pcmsv2.convertor.dto2model" />
       <recent name="com.zhsl.pcmsv2.mapper" />
-      <recent name="com.zhsl.pcmsv2.model" />
-      <recent name="com.zhsl.pcmsv2.convertor.tovo" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\java\com\zhsl\pcmsv2\dto" />
       <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\resources\mapper" />
       <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\java\com\zhsl\pcmsv2\model" />
-      <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\java\com\zhsl\pcmsv2\dto" />
       <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\java\com\zhsl\pcmsv2\vo" />
       <recent name="D:\IdeaProjects\pcmsv2\pcmsv2-web\src\main\java\com\zhsl\pcmsv2\service\impl" />
     </key>
@@ -836,7 +756,7 @@
       <workItem from="1540343303431" duration="27942000" />
       <workItem from="1540375850726" duration="225000" />
       <workItem from="1540428689215" duration="25103000" />
-      <workItem from="1540860931567" duration="22595000" />
+      <workItem from="1540860931567" duration="33815000" />
     </task>
     <servers />
   </component>
@@ -873,10 +793,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245259000" />
+    <option name="totallyTimeSpent" value="256479000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3529412" sideWeight="0.5075107" order="7" side_tool="true" content_ui="tabs" />
@@ -888,14 +809,14 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25697425" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33031675" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30769232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.49570817" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34162897" sideWeight="0.49248928" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34162897" sideWeight="0.49248928" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3143777" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -934,331 +855,39 @@
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/CompositeSessionAuthenticationStrategy.java</url>
-          <line>88</line>
+          <url>file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeFilter.java</url>
+          <line>83</line>
           <properties />
-          <option name="timeStamp" value="139" />
+          <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/AbstractSessionFixationProtectionStrategy.java</url>
-          <line>68</line>
+          <url>file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeFilter.java</url>
+          <line>107</line>
           <properties />
-          <option name="timeStamp" value="140" />
+          <option name="timeStamp" value="142" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationFilter.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="143" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/ProviderManager.java</url>
+          <line>162</line>
+          <properties />
+          <option name="timeStamp" value="154" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="141" />
+      <option name="time" value="157" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/authentication/MyAuthenticationSuccessHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="110" column="22" lean-forward="false" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/AuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-366">
-          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/CompositeSessionAuthenticationStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/AbstractSessionFixationProtectionStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/AbstractUserDetailsAuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="79" column="24" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="79" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="37" column="68" lean-forward="false" selection-start-line="37" selection-start-column="68" selection-end-line="37" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/AuthenticationSuccessHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="38" column="17" lean-forward="false" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/authentication/MyAuthenticationFailureHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/DefaultUserDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/UserDetailsServiceConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/AuthorizeConfigProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/CoreAuthorizeConfigProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="41" column="44" lean-forward="true" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/sms/DefaultSmsCodeSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/sms/SmsCodeSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/SecurityCoreConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/AbstractChannelSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="23" column="27" lean-forward="true" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="32" column="32" lean-forward="true" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="8" column="58" lean-forward="false" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/AuthorizeConfigManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/CoreConfigManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="13" column="49" lean-forward="false" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/BrowserProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/ImageCodeProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/LoginType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/SecurityConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/SecurityProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/SmsCodeProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/ValidateCodeProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/image/ImageCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/image/ImageCodeGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeBeanConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/sms/SmsCodeGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-295">
           <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1279,34 +908,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/image/ImageCodeProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="13" column="57" lean-forward="false" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeProcessorHolder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
           <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-65">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/impl/AbstractValidateCodeProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="106" column="57" lean-forward="true" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="57" />
           <folding />
         </state>
       </provider>
@@ -1327,35 +932,393 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeException.java">
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/BrowserProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/SecurityCoreConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/properties/SSOPropertyConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <caret line="4" column="50" lean-forward="false" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/SecurityConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-46">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/SecurityProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/CoreAuthorizeConfigProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="43" column="21" lean-forward="false" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/OauthMetaDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/OauthDataDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/AbstractChannelSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/exception/SSOAuthenticationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="54" lean-forward="false" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding>
+            <element signature="e#238#239#0" expanded="false" />
+            <element signature="e#264#265#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/impl/AbstractValidateCodeProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="107" column="9" lean-forward="true" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/dto/OauthTokenDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/image/ImageCodeProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="13" column="52" lean-forward="true" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="90" column="22" lean-forward="false" selection-start-line="90" selection-start-column="22" selection-end-line="90" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/UsernameAuthenticationToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="42" column="56" lean-forward="false" selection-start-line="42" selection-start-column="56" selection-end-line="42" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1931#1932#0" expanded="true" />
+            <element signature="e#1958#1959#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="7" column="72" lean-forward="true" selection-start-line="7" selection-start-column="72" selection-end-line="7" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/ValidateIdentityProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/util/OauthUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="30" column="53" lean-forward="false" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/authorize/SSOAuthorizeConfigProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/authorize/Pcmsv2AuthorizeConfigProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="9" column="78" lean-forward="false" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/AuthorizeConfigManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/CoreConfigManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/properties/SSOProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#579#580#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/CompositeSessionAuthenticationStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/session/AbstractSessionFixationProtectionStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+        <state relative-caret-position="138">
+          <caret line="15" column="39" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/properties/validate/code/ValidateCodeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1495">
-          <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="51" />
+        <state relative-caret-position="108">
+          <caret line="23" column="3" lean-forward="false" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.9.RELEASE/spring-web-5.0.9.RELEASE-sources.jar!/org/springframework/web/filter/OncePerRequestFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/header/HeaderWriterFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/SecurityConfigurerAdapterManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92">
+          <caret line="14" column="77" lean-forward="false" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-browser/src/main/java/com/zhsl/pcmsv2/browser/BrowserSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authorize/filter/FilterConfigurerAdpaterManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="24" column="54" lean-forward="false" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.0.8.RELEASE/spring-security-web-5.0.8.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-core/src/main/java/com/zhsl/pcmsv2/core/authentication/mobile/SmsCodeAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="21" lean-forward="false" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+          <folding>
+            <element signature="e#1897#1898#0" expanded="true" />
+            <element signature="e#1957#1958#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/AuthenticationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcmsv2-web/src/main/java/com/zhsl/pcmsv2/sso/oauth/SSOAuthenticationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.0.8.RELEASE/spring-security-core-5.0.8.RELEASE-sources.jar!/org/springframework/security/authentication/ProviderManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+          <folding>
+            <element signature="e#10206#10207#0" expanded="true" />
+            <element signature="e#10229#10230#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

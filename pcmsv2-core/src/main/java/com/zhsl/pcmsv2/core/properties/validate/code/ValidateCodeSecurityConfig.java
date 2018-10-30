@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
 
-@Component("validateCodeSecurityConfig")
+// @Component
 public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
 	@Autowired

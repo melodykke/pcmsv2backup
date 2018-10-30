@@ -41,8 +41,12 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.0</version>
         </dependency>
-
-
+        <!--HTTP的包-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>

@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-@Component("validateCodeFilter")
+// @Component
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     /**
